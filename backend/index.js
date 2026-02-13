@@ -3,15 +3,20 @@
 const express = require("express");
 const mongoose = require('mongoose');
 const cors = require("cors");
+require('dotenv').config();
 
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect("mongodb+srv://sannadate2023_db_user:ynezhdhe9H732Pnq@cluster0.159japd.mongodb.net/?appName=Cluster0/employee")
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("Connected to MongoDB"))
+  .catch(err => console.error(err));
 
-app.listen(3001, () =>{
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () =>{
 
     console.log("Server is running");
 });
