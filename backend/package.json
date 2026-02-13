@@ -1,27 +1,18 @@
 {
-  "name": "usefresh",
+  "name": "backend",
   "version": "1.0.0",
-  "description": "A web app designed to help users keep track on food that is expiring soon. It helps reduce food waste.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/WSU-4110/UseFresh.git"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/WSU-4110/UseFresh/issues"
-  },
-  "homepage": "https://github.com/WSU-4110/UseFresh#readme",
+  "description": "",
   "dependencies": {
     "cors": "^2.8.6",
-    "express": "^5.2.1",
+    "express": "^4.18.2",
     "mongoose": "^8.23.0",
     "nodemon": "^3.1.11"
   }
