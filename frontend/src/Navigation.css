@@ -9,6 +9,9 @@
 }
 
 .topbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: linear-gradient(90deg, var(--forest-700), var(--forest-800));
   border: 1px solid #4d7a63;
   border-radius: 14px;
@@ -26,6 +29,7 @@
 .hamburger {
   width: 54px;
   height: 54px;
+  padding: 0;
   background: var(--beige-200);
   color: var(--forest-900);
   border: 1px solid var(--beige-300);
@@ -34,6 +38,7 @@
   font-size: 32px;
   display: grid;
   place-items: center;
+  line-height: 1;
   transition: background-color 0.2s ease, transform 0.12s ease, box-shadow 0.2s ease;
   font-family: "Times New Roman", Times, serif;
 }

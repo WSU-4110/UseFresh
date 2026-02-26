@@ -31,7 +31,7 @@ function Login() {
             //if the backend confirms that the login works
             if(result.data.message === "Success" ) {
             //will go to the home page
-            nav("/")
+            nav("/home")
             }
             else {
                 //if there is an error it shows it on backend

@@ -44,7 +44,7 @@ export default function Navigation() {
 
         {open && (
           <nav className="menu">
-            <Link to="/" onClick={() => setOpen(false)}>
+            <Link to="/home" onClick={() => setOpen(false)}>
               Home
             </Link>
             <Link to="/items" onClick={() => setOpen(false)}>

@@ -1,0 +1,6 @@
+
+npm install @huggingface/inference - command for huggingface download
+node ./server.js - command for running the AI
+$env:HF_TOKEN=“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” - command for making AI = true
+
+
