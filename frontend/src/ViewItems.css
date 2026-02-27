@@ -1,0 +1,58 @@
+.view-items-page {
+  width: 100%;
+  max-width: none;
+  min-height: calc(100vh - 110px);
+  margin: 0;
+  padding: 24px 24px 40px;
+  border: none;
+  border-radius: 0;
+  background:
+    radial-gradient(circle at 12% 10%, #f4e9b8 0%, transparent 30%),
+    radial-gradient(circle at 88% 8%, #dbe6d9 0%, transparent 28%),
+    linear-gradient(180deg, #efe8da 0%, #e7ddcc 100%);
+  color: #3d3224;
+  text-align: center;
+}
+
+.view-items-page::before {
+  content: "";
+  display: block;
+  width: min(430px, 82vw);
+  height: min(430px, 82vw);
+  margin: 0 auto;
+  background-image: url("./Logo/UseFreshLogo.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.view-items-page h1 {
+  margin: 0;
+  font-family: "Times New Roman", Times, serif;
+  font-style: italic;
+  font-size: clamp(4.8rem, 8vw, 6.4rem);
+  color: #2f5139;
+  letter-spacing: 0.04em;
+}
+
+.view-items-page p {
+  margin-top: 0;
+  font-size: 1.35rem;
+  line-height: 1.65;
+  color: #594838;
+  max-width: 65ch;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+@media (max-width: 640px) {
+  .view-items-page {
+    min-height: calc(100vh - 96px);
+    padding: 22px 18px;
+  }
+
+  .view-items-page p {
+    font-size: 1.2rem;
+  }
+}

@@ -1,0 +1,90 @@
+.authentication-page {
+  width: 100%;
+  max-width: none;
+  min-height: 100vh;
+  margin: 0 auto 10px;
+  padding: 24px 24px 40px;
+  border: none;
+  border-radius: 0;
+  background:
+    radial-gradient(circle at 12% 10%, #f4e9b8 0%, transparent 30%),
+    radial-gradient(circle at 88% 8%, #dbe6d9 0%, transparent 28%),
+    linear-gradient(180deg, #efe8da 0%, #e7ddcc 100%);
+  color: #3d3224;
+  text-align: center;
+}
+
+.authentication-page::before {
+  content: "";
+  display: block;
+  width: min(430px, 82vw);
+  height: 130px;
+  margin: 0 auto 10 px;
+  
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.authentication-page h1 {
+  margin: 0;
+  font-family: "Times New Roman", Times, serif;
+  font-style: italic;
+   font-size: clamp(4.8rem, 8vw, 6.4rem);
+  color: #2f5139;
+  letter-spacing: 0.04em;
+}
+
+.authentication-page p.subtitle{
+  margin-top: 6px;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 1.1rem;
+  line-height: 1.65;
+   color: #4e3f31;
+  max-width: 65ch;
+  margin-left: auto;
+   margin-right: auto;
+
+}
+.authentication-card {
+    
+    width: min(430px, 92vw);
+    margin: 18px auto 0;
+    padding:12px;
+   background: rgba(247,  250, 233, 0.82);
+    border: 2px ;
+    border-color: rgba(61, 51, 36 , 0.12 );
+   border-radius: 13px;
+   text-align: left;
+}
+
+
+.authentication-card label{
+    font-family: Georgia, "Times New Roman", Times, serif;
+    color:#3d3224;
+}
+.authentication-card .form-control {
+
+    border-radius:12px;
+}
+
+.authentication-card .btn-success {
+    border-radius: 12px;
+}
+.authentication-footer {
+
+    margin-top: 12px;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    text-align:left ;
+    color: #594838
+}
+
+@media (max-width: 640px) {
+  .authentication-page {
+    padding: 22px 18px;
+  }
+
+  .authentication-page p subtitle{
+    font-size: 1.1rem;
+  }
+}
