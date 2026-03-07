@@ -2,14 +2,19 @@ const mongoose = require("mongoose");
 
 const foodSchema = new mongoose.Schema(
     {
-        name: {
+        foodItem: {
             type: String,
             required: true
         },
-        category: String,
-        quantity: Number,
-        expirationDate: Date,
-        storageLocation: String
+        quantity: {
+            type: Number,
+            default: 1
+
+        },
+        expirationDate: {
+            type: Date,
+            required: true
+        }
     }
 );
 
