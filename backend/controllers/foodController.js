@@ -1,6 +1,6 @@
-const FoodItem = require(".../models/FoodItem");
+const FoodItem = require("../models/FoodItem");
 
-//This is teh logic that adds the food items to teh database
+//This is the logic that adds the food items to teh database
 exports.addFood = async (req, res) => {
   try {
     const newFood = new FoodItem({
@@ -16,3 +16,5 @@ exports.addFood = async (req, res) => {
     res.status(500).json({ error: "Unable to add food item" });
   }
 };
+
+
