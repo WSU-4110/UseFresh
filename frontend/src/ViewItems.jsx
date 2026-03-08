@@ -15,7 +15,7 @@ export default function ViewItems() {
 
   /* useEffect(() => {
     //gets all of the food items from the backedn
-  axios.get("http://localhost:3001(ask backend)").then((response) => {
+  axios.get("http://localhost:3001/api/foods/all").then((response) => {
     setFood(response.data);
   })
   .catch(()=> {
@@ -53,7 +53,7 @@ export default function ViewItems() {
       
     }
     //adding another food item to the backedn via axios
-   /* axios.post("http://localhost:3001/(add later)", 
+   /* axios.post("http://localhost:3001/api/foods/add", 
       { foodItem: foodItem, quantity: quantity, expirationDate: expirationDate}
     )
       //add new food items to the table
@@ -145,10 +145,10 @@ export default function ViewItems() {
            <div className ="food-row" key={indx}>
 
             <span> {item.foodItem} </span>
+            <span>{item.quantity} </span>
             <span> {item.expirationDate} </span>
 
-            <span>{item.quantity} </span>
-            <span>{CalculateDaysLeft(item.expirationDate) } </span>
+            <span>{calculateDaysLeft(item.expirationDate) } </span>
           </div>
         ))}
       </div>

@@ -27,7 +27,7 @@ export default function Home() {
     }
    
     //sends food item and the expiration date to the backend
-   /* axios.post("http://localhost:3001/(backendstuff)", 
+   /* axios.post("http://localhost:3001/api/foods/add", 
       { foodItem: foodItem, quantity: quantity, expirationDate: expirationDate})
     .then (() => { alert("Food item sccessfully added!")
     removeFields()})
