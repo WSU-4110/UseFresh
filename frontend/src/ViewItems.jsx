@@ -18,6 +18,7 @@ export default function ViewItemsPage() {
   const [scanStep, setScanStep] = useState("product");
   const [productName, setProductName] = useState("");
   const [expirationDate, setExpirationDate] = useState("");
+  const [editableQuantity, setEditableQuantity] = useState("");
 
   const [editableProductName, setEditableProductName] = useState("");
   const [editableExpirationDate, setEditableExpirationDate] = useState("");
@@ -93,6 +94,7 @@ export default function ViewItemsPage() {
       setExpirationDate("");
       setEditableProductName("");
       setEditableExpirationDate("");
+      setEditableQuantity("");
 
       const stream = await navigator.mediaDevices.getUserMedia({
         video: true,
@@ -239,14 +241,30 @@ export default function ViewItemsPage() {
     setScanning(false);
   };
 
-  const handleSaveItem = () => {
-    const finalItem = {
-      product_name: editableProductName,
-      expiration_date: editableExpirationDate
-    };
+  const handleSaveItem = async () => {
+    try {
+      const payload = {
+        foodItem: editableProductName,
+        quantity: Number(editableQuantity) || 1,
+        expirationDate: editableExpirationDate
+      };
 
-    console.log("Saving item:", finalItem);
-    setStatus("Item confirmed and ready to save.");
+      const response = await axios.post("http://localhost:3001/api/foods/add", payload);
+      const newFood = response.data;
+
+      setFood([...food, newFood]);
+      setStatus("Item saved successfully.");
+
+      setScanResult(null);
+      setProductName("");
+      setExpirationDate("");
+      setEditableProductName("");
+      setEditableExpirationDate("");
+      setEditableQuantity("");
+    } catch (err) {
+      console.error("Save failed:", err);
+      setStatus("Failed to save item.");
+    }
   };
 
   const handleScanAgain = () => {
@@ -255,6 +273,7 @@ export default function ViewItemsPage() {
     setExpirationDate("");
     setEditableProductName("");
     setEditableExpirationDate("");
+    setEditableQuantity("");
     setScanResult(null);
     setStatus("Ready to scan again.");
   };
@@ -293,10 +312,6 @@ export default function ViewItemsPage() {
           disabled={!cameraOpen}
         >
           Close Camera
-        </button>
-
-        <button className="manual-entry-btn">
-          Enter Manually
         </button>
       </div>
 
@@ -349,6 +364,17 @@ export default function ViewItemsPage() {
                 type="text"
                 value={editableProductName}
                 onChange={(e) => setEditableProductName(e.target.value)}
+              />
+            </label>
+
+            <label>
+              Quantity:
+              <input
+                type="number"
+                min="1"
+                value={editableQuantity}
+                onChange={(e) => setEditableQuantity(e.target.value)}
+                placeholder="Enter quantity"
               />
             </label>
 
