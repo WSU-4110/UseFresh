@@ -10,7 +10,7 @@
 
 .topbar {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   background: linear-gradient(90deg, var(--forest-700), var(--forest-800));
   border: 1px solid #4d7a63;

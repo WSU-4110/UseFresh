@@ -15,18 +15,13 @@
   position: relative;
 }
 
-.view-items-page::before {
-  content: "";
-  position: absolute; 
-  width: 160px;
-  height: 160px;
-  top: 15px;
-  left: 460px;
-  margin: 0 auto;
-  background-image: url("./Logo/UseFreshLogo.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
+.view-items-logo {
+  position: absolute;
+  top: 18px;
+  left: 16px;
+  width: 185px;
+  height: 185px;
+  object-fit: contain;
 }
 
 .view-items-page h1 {
@@ -48,11 +43,18 @@
   margin-right: auto;
   font-family: Georgia, "Times New Roman", Times, serif;
 }
+.item-actions {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
 .addItem-btn{
   color: #f2e9db;
   font-family: "Times New Roman", Times, serif ;
   font-size: 1.4rem;
-  margin-top: 12px;
+  margin-top: 0;
   min-width: 260px;
   border:2px solid #2d5932;
   font-weight: 520;
@@ -60,6 +62,21 @@
   background: linear-gradient(180deg, #3b6f56 0%, #2f5a45 100%);
 }
 .addItem-btn:hover{
+  filter: brightness(1.01);
+}
+.removeItem-btn,
+.editItem-btn {
+  color: #f2e9db;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 1.4rem;
+  min-width: 260px;
+  border: 2px solid #2d5932;
+  font-weight: 520;
+  cursor: pointer;
+  background: linear-gradient(180deg, #3b6f56 0%, #2f5a45 100%);
+}
+.removeItem-btn:hover,
+.editItem-btn:hover {
   filter: brightness(1.01);
 }
 /*this is the background when the form is open and in the middle of the screen*/
@@ -192,6 +209,13 @@
   .view-items-page {
     min-height: calc(100vh - 96px);
     padding: 22px 18px;
+  }
+
+  .view-items-logo {
+    width: 110px;
+    height: 110px;
+    top: 12px;
+    left: 8px;
   }
 
   .view-items-page p {

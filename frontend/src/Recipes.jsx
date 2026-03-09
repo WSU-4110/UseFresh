@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./Recipes.css";
+import useFreshLogo from "./Logo/UseFreshLogo.png";
 
 export default function Recipes() {
   const [recipe, setRecipe] = useState(null);
@@ -31,6 +32,7 @@ export default function Recipes() {
 
   return (
     <main className="recipes-page">
+      <img src={useFreshLogo} alt="UseFresh logo" className="recipes-logo" />
       <h1>Recipes</h1>
 
       <button
