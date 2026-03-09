@@ -13,18 +13,19 @@ export default function ViewItems() {
   const[food, setFood] = useState([]);
   const[quantity, setQuantity] = useState("");
 
-  /* useEffect(() => {
+  useEffect(() => {
     //gets all of the food items from the backedn
   axios.get("http://localhost:3001/api/foods/all").then((response) => {
     setFood(response.data);
   })
   .catch(()=> {
     alert("There was an issue loading the food items")
-  }); }, [])*/
+  }); }, [])
     
     const removeFields = () => {
     setFoodItem("");
     setExpirationDate("");
+    setQuantity("");
     setFoodForm(false);
 
     }
@@ -50,10 +51,11 @@ export default function ViewItems() {
 
     if(!expirationDate || !foodItem) {
       alert("Please fill in the required fields!");
+      return;
       
     }
     //adding another food item to the backedn via axios
-   /* axios.post("http://localhost:3001/api/foods/add", 
+   axios.post("http://localhost:3001/api/foods/add", 
       { foodItem: foodItem, quantity: quantity, expirationDate: expirationDate}
     )
       //add new food items to the table
@@ -62,10 +64,10 @@ export default function ViewItems() {
       setFood([...food, newFood]);
        removeFields();})
     .catch(() => { alert ("Unable to add food item. Try again later!")});
-  };  */
+  };  
   
-    removeFields();
-  }
+    
+  
     //returns what is going to be shown on the view items page
     /*food form with food name, quantity, and expiration date*/
   return (
