@@ -36,6 +36,11 @@ app.post("/suggest-recipes", async (req, res) => {
   const prompt = `
   Create ONE simple recipe using these ingredients if possible: ${ingredients}.
 
+  IMPORTANT:
+  - The recipe MUST be written in English.
+  - Ingredient names MUST be in English.
+  - Cooking steps MUST be in English.
+
   Return ONLY valid JSON in this format:
   {
     "title": string,
