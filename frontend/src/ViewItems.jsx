@@ -59,7 +59,9 @@ export default function ViewItemsPage() {
     
     return daysLeft
   }
-
+ const formatDate=(dateVal) =>{
+  return new Date(dateVal).toLocaleDateString("en-US", { month: "2-digit", day:"2-digit", year: "2-digit"});
+ }
 
   const handleSubmit = (e) => { 
     e.preventDefault();
@@ -267,7 +269,7 @@ export default function ViewItemsPage() {
 
   return (
     <div className="view-items-page">
-      <h1>UseFresh</h1>
+      <h1>View Items</h1>
       <p>
         View your pantry items and scan new ones instead of typing everything by hand.
       </p>
@@ -297,7 +299,7 @@ export default function ViewItemsPage() {
           Enter Manually
         </button>
       </div>
-      
+
       <button className = "addItem-btn" onClick={() => setFoodForm(true)}>
         Add Food Item
       </button>
@@ -443,8 +445,8 @@ export default function ViewItemsPage() {
 
             <span> {item.foodItem} </span>
             <span>{item.quantity} </span>
-            <span> {item.expirationDate} </span>
-
+            
+            <span>{formatDate(item.expirationDate)}</span>
             <span>{calculateDaysLeft(item.expirationDate) } </span>
           </div>
         ))}

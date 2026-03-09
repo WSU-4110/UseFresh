@@ -76,14 +76,30 @@
   text-align: center;
   position: relative;
 }
-
+.view-items-page {
+   width: 100%;
+  max-width: none;
+  min-height: calc(100vh - 110px);
+  margin: 0;
+  padding: 24px 24px 40px !important;
+  border: none;
+  border-radius: 0;
+  background:
+    radial-gradient(circle at 12% 10%, #f4e9b8 0%, transparent 30%),
+    radial-gradient(circle at 88% 8%, #dbe6d9 0%, transparent 28%),
+    linear-gradient(180deg, #efe8da 0%, #e7ddcc 100%);
+  box-shadow: none;
+  color: #3d3224;
+  text-align: center;
+  position: relative;
+}
 .view-items-page::before {
   content: "";
   position: absolute; 
   width: 160px;
   height: 160px;
-  top: 15px;
-  left: 460px;
+  top: 10px;
+  left: 390px;
   margin: 0 auto;
   background-image: url("./Logo/UseFreshLogo.png");
   background-repeat: no-repeat;
@@ -101,11 +117,15 @@
 }
 
 .view-items-page p {
-  margin-top: 0;
+  margin-top: 20px;
+  margin-bottom: 24px;
   font-size: 1.35rem;
   line-height: 1.65;
   color: #594838;
   margin-bottom: 14px;
+  max-width: 65ch;
+  margin-right: auto;
+  margin-left: auto;
 }
 .addItem-btn{
   color: #f2e9db;
