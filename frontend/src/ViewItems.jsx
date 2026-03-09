@@ -18,14 +18,14 @@ export default function ViewItems() {
   const[food, setFood] = useState([]);
   const[quantity, setQuantity] = useState("");
 
-  /* useEffect(() => {
+   useEffect(() => {
     //gets all of the food items from the backedn
-  axios.get("http://localhost:3001(ask backend)").then((response) => {
+  axios.get("https://localhost:3001/api/foods/all").then((response) => {
     setFood(response.data);
   })
   .catch(()=> {
     alert("There was an issue loading the food items")
-  }); }, [])*/
+  }); }, [])
     
     const removeFields = () => {
     setFoodItem("");
@@ -61,7 +61,7 @@ export default function ViewItems() {
       return;
     }
     //adding another food item to the backedn via axios
-   /* axios.post("http://localhost:3001/(add later)", 
+    axios.post("https://localhost:3001/api/foods/add", 
       { foodItem: foodItem, quantity: quantity, expirationDate: expirationDate}
     )
       //add new food items to the table
@@ -70,7 +70,7 @@ export default function ViewItems() {
       setFood([...food, newFood]);
        removeFields();})
     .catch(() => { alert ("Unable to add food item. Try again later!")});
-  };  */
+  };  
   
     removeFields();
   }
@@ -106,7 +106,7 @@ export default function ViewItems() {
     });
 
     //removing food item from the backend via axios
-    /* axios.delete("http://localhost:3001/(remove later)", {
+    axios.delete("https://localhost:3001/api/foods/:id", {
       data: { foodItem: foodItem, quantity: quantity }
     })
     //remove food item from the table
@@ -123,7 +123,7 @@ export default function ViewItems() {
       removeFields();
     })
     .catch(() => { alert("Unable to remove food item. Try again later!"); });
-    return; */
+    return; 
 
     removeFields();
   }
@@ -164,7 +164,7 @@ export default function ViewItems() {
     }
 
     //editing food item in the backend via axios
-    /* axios.put("http://localhost:3001/(edit later)",
+    axios.put("https://localhost:3001/api/foods/:id",
       { foodItem: foodItem, quantity: quantity, expirationDate: expirationDate }
     )
     //update edited food item in the table
@@ -184,7 +184,7 @@ export default function ViewItems() {
       removeFields();
     })
     .catch(() => { alert("Unable to edit food item. Try again later!"); });
-    return; */
+    return;
 
     removeFields();
   }
@@ -382,5 +382,5 @@ export default function ViewItems() {
 
     </main>
   );
-}
+
 
