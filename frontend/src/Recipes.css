@@ -44,6 +44,30 @@
   font-family: Georgia, "Times New Roman", Times, serif;
 }
 
+.recipe-container {
+  margin-top: 30px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;   /* centers the container */
+  text-align: left;    
+}
+
+.recipe-section {
+  margin-top: 20px;
+}
+
+.ingredients-list,
+.steps-list {
+  padding-left: 25px;   /* keeps bullets close to text */
+  margin: 10px 0;
+}
+
+.ingredients-list li,
+.steps-list li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
 .generate-recipe-btn {
   margin-top: 14px;
   min-width: 260px;

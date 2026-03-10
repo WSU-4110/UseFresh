@@ -44,14 +44,28 @@ export default function Recipes() {
       </button>
 
       {recipe && (
-        <div style={{ marginTop: "20px" }}>
-          <h2>{recipe.title}</h2>
+        <div className="recipe-container">
 
-          <ul>
-            {recipe.ingredients?.map((i, idx) => (
-              <li key={idx}>{i}</li>
-            ))}
-          </ul>
+          {recipe.title && <h2 className="recipe-title">{recipe.title}</h2>}
+
+          <div className="recipe-section">
+            <h3>Ingredients</h3>
+            <ul className="ingredients-list">
+              {recipe.ingredients?.map((i, idx) => (
+                <li key={idx}>{i}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="recipe-section">
+            <h3>Steps</h3>
+            <ol className="steps-list">
+              {recipe.steps?.map((step, idx) => (
+                <li key={idx}>{step}</li>
+              ))}
+            </ol>
+          </div>
+
         </div>
       )}
     </main>
