@@ -29,46 +29,67 @@ const Food = mongoose.model("Food", foodSchema,"fooditems");
 
 app.post("/suggest-recipes", async (req, res) => {
   try {
+    console.log("1. /suggest-recipes route hit");
+
     const foods = await Food.find();
-    console.log("Foods from DB:", foods);
+    console.log("2. Foods fetched from DB:", foods);
+
     const ingredients = foods.map(f => f.foodItem).join(", ");
+    console.log("3. Ingredients string:", ingredients);
 
-  const prompt = `
-  Create ONE simple recipe using these ingredients if possible: ${ingredients}.
+    const prompt = `
+You are a recipe generator.
 
-  IMPORTANT:
-  - The recipe MUST be written in English.
-  - Ingredient names MUST be in English.
-  - Cooking steps MUST be in English.
+Create exactly ONE simple recipe using these pantry ingredients when possible:
+${ingredients}
 
-  Return ONLY valid JSON in this format:
-  {
-    "title": string,
-    "ingredients": string[],
-    "steps": string[]
-  }
-  `.trim();
+Rules:
+- Write everything in English.
+- Return ONLY valid JSON.
+- Do not include markdown or code fences.
+- Do not include any text before or after the JSON.
+- Use this exact format:
+
+{
+  "title": string,
+  "ingredients": string[],
+  "steps": string[]
+}
+`.trim();
+
+    console.log("4. About to call Hugging Face");
 
     const chat = await hf.chatCompletion({
       model: "Qwen/Qwen2.5-7B-Instruct:together",
       messages: [{ role: "user", content: prompt }],
-      max_tokens: 300,
-      temperature: 1.0
+      max_tokens: 500,
+      temperature: 0.8
     });
 
+    console.log("5. Hugging Face responded");
+
     const text = chat.choices?.[0]?.message?.content?.trim();
+    console.log("6. Raw model output:", text);
 
     if (!text) {
       return res.status(500).json({ error: "No content returned from model" });
     }
 
     try {
-      return res.json(JSON.parse(text));
-    } catch {
+      const cleaned = text
+        .replace(/```json\s*/i, "")
+        .replace(/```/g, "")
+        .trim();
+
+      const parsed = JSON.parse(cleaned);
+      console.log("7. Parsed JSON successfully");
+      return res.json(parsed);
+    } catch (err) {
+      console.error("8. JSON parse failed:", err);
       return res.json({ raw: text });
     }
   } catch (err) {
-    console.error(err);
+    console.error("9. Route failed:", err);
     return res.status(500).json({ error: "LLM failed", details: String(err) });
   }
 });
