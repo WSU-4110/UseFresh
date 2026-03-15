@@ -3,6 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Authentication.css";
 import axios from "axios"
 import logo from "./Logo/Logo.png";
+import RegisterCheck from "./Check/RegisterCheck";
+import PasswordCheck from "./Check/PasswordCheck";
+import Required from "./Check/RequiredCheck";
+import EmailCheck from "./Check/EmailCheck";
+
 
 function RequiredLabel({children, required}) {
   return (
@@ -22,50 +27,39 @@ function Signup() {
   const [password, setPassword] = useState("");
   //used to navigate to other pages
  const nav = useNavigate();
-  const handleSubmit = (e) => {
+ //runs when the form is submitted
+  const handleSubmit = async (e) => {
 
     e.preventDefault();
-    if (!username ||!email || !password) {
+//final check 
+    const register = new RegisterCheck();
+    //creates email check and connects check to register check
+    const emailCheck = new EmailCheck(register);
 
-      alert("Please fill in the required fields ");
-      return;
-    }
-    //checks to see if password that the user enters is 8 characters and if it is not then it sends message to user. 
-    if(password.length <8) {
-        alert("Password must be at least 8 characters long.");
-        return;
-    }
-
-//if email input doesnt havr @ gives error message asking user to input valid email.
-    if (!email.includes("@")) {
-
-      alert("This email does not exist. Please enter a valid email.");
-      return;
+    //creates password check and connects check to email check
+     const passwordCheck = new PasswordCheck(emailCheck);
+     //creates required check and connects check to password check
+    const requiredCheck = new Required(passwordCheck);
+//info is sent to required check to begin chain
+    const output = await requiredCheck.handle({
+      
+      username, email, password
 
     }
+  );
+//if chain words message is shown and user is navigated to login page
+    if(output.success) {
 
+      alert(output.message)
+      nav("/login");
 
-        //sends post request to backend (register), sends either username and email and password that the user inputted to server
-       axios.post("http://localhost:3001/api/user/register", {username, email, password })
-       //if the backend has recieved the request sucessfully it then it continues
-        .then( (result) => {
-        
-           alert("Account Created! Please Login.");
-            //it will then go to login page
-            nav("/login")
-        })
-            //catches any error and sends message to backend
-        .catch((err) => {
-            alert("err.response.data.error");
-            
-        });
-
-
-
-    
+    }
+    //if error then it prints error message
+    else{
+      alert(output.message);
+    }
+  
   };
-
-
 return (
     
        <div className = "authentication-page">
