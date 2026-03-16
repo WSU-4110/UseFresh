@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 import multer from "multer";
 import { HfInference } from "@huggingface/inference";
 import mongoose from "mongoose";
+import RecipeService from "./services/RecipeService.js";
+
 
 dotenv.config();
 
@@ -19,78 +21,38 @@ mongoose.connect(process.env.MONGO_URI, {dbName: "usefresh"} )
   .then(() => console.log("Connected to MongoDB"))
   .catch(err => console.error(err));
 
-const foodSchema = new mongoose.Schema({
-  foodItem: String,
-  quantity: Number,
-  expirationDate: Date
-});
+const recipeService = new RecipeService(hf);
+// const foodSchema = new mongoose.Schema({
+//   foodItem: String,
+//   quantity: Number,
+//   expirationDate: Date
+// });
 
-const Food = mongoose.model("Food", foodSchema,"fooditems");
+// const Food = mongoose.model("Food", foodSchema,"fooditems");
 
+//shortened logic for the post as most of it was moved to Recipe_Service
 app.post("/suggest-recipes", async (req, res) => {
   try {
     console.log("1. /suggest-recipes route hit");
 
-    const foods = await Food.find();
-    console.log("2. Foods fetched from DB:", foods);
+    const recipeText = await recipeService.generateRecipe();
 
-    const ingredients = foods.map(f => f.foodItem).join(", ");
-    console.log("3. Ingredients string:", ingredients);
+    const cleaned = recipeText
+      .replace(/```json\s*/i, "")
+      .replace(/```/g, "")
+      .trim();
 
-    const prompt = `
-You are a recipe generator.
+    const parsed = JSON.parse(cleaned);
 
-Create exactly ONE simple recipe using these pantry ingredients when possible:
-${ingredients}
+    return res.json(parsed);
 
-Rules:
-- Write everything in English.
-- Return ONLY valid JSON.
-- Do not include markdown or code fences.
-- Do not include any text before or after the JSON.
-- Use this exact format:
-
-{
-  "title": string,
-  "ingredients": string[],
-  "steps": string[]
-}
-`.trim();
-
-    console.log("4. About to call Hugging Face");
-
-    const chat = await hf.chatCompletion({
-      model: "Qwen/Qwen2.5-7B-Instruct:together",
-      messages: [{ role: "user", content: prompt }],
-      max_tokens: 500,
-      temperature: 0.8
-    });
-
-    console.log("5. Hugging Face responded");
-
-    const text = chat.choices?.[0]?.message?.content?.trim();
-    console.log("6. Raw model output:", text);
-
-    if (!text) {
-      return res.status(500).json({ error: "No content returned from model" });
-    }
-
-    try {
-      const cleaned = text
-        .replace(/```json\s*/i, "")
-        .replace(/```/g, "")
-        .trim();
-
-      const parsed = JSON.parse(cleaned);
-      console.log("7. Parsed JSON successfully");
-      return res.json(parsed);
-    } catch (err) {
-      console.error("8. JSON parse failed:", err);
-      return res.json({ raw: text });
-    }
   } catch (err) {
-    console.error("9. Route failed:", err);
-    return res.status(500).json({ error: "LLM failed", details: String(err) });
+    console.error("Recipe generation failed:", err);
+
+    return res.status(500).json({
+      error: "LLM failed",
+      details: String(err)
+    });
   }
 });
 
