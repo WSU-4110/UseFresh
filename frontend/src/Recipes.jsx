@@ -45,11 +45,19 @@ export default function Recipes() {
         <div style={{ marginTop: "20px" }}>
           <h2>{recipe.title}</h2>
 
+          <h3>Ingredients</h3>
           <ul>
             {recipe.ingredients?.map((i, idx) => (
               <li key={idx}>{i}</li>
             ))}
           </ul>
+
+          <h3>Steps</h3>
+          <ol>
+            {recipe.steps?.map((step, idx) => (
+              <li key={idx}>{step}</li>
+            ))}
+          </ol>
         </div>
       )}
     </main>
