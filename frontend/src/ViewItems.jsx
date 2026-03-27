@@ -198,6 +198,8 @@ export default function ViewItemsPage() {
 
         expirationDate: expirationVal,
 
+        user: localStorage.getItem("userId")
+
       })
 
       .then((response) => {
