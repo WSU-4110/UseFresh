@@ -3,6 +3,9 @@ const FoodItem = require("../models/FoodItem");
 //This is the logic that adds the food items to teh database
 exports.addFood = async (req, res) => {
   try {
+
+    console.log("REQ BODY:", req.body);
+
     const newFood = new FoodItem({
       foodItem: req.body.foodItem,
       quantity: req.body.quantity,
@@ -14,6 +17,7 @@ exports.addFood = async (req, res) => {
     res.status(201).json(savedFood);
 
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: "Unable to add food item" });
   }
 };
