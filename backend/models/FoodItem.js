@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+
 const foodSchema = new mongoose.Schema(
     {
         foodItem: {
@@ -14,7 +15,14 @@ const foodSchema = new mongoose.Schema(
         expirationDate: {
             type: Date,
             required: true
+        },
+
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+            required: true
         }
+        
     }
 );
 

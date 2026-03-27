@@ -64,7 +64,11 @@ export default function ViewItemsPage() {
 
     axios
 
-      .get("http://localhost:3001/api/foods/all")
+      .get("http://localhost:3001/api/foods/all", {
+          params: {
+          userId: localStorage.getItem("userId")
+                  }
+        })
 
       .then((response) => {
 
