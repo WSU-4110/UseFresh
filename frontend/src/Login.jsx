@@ -28,6 +28,21 @@ function Login() {
         axios.post("http://localhost:3001/api/user/login", {username: usernameOrEmail, email: usernameOrEmail, password: password, })
         //if the backend has recieved the request sucessfully
         .then((result) => {
+            if(result.data.message === "Success" ) {
+
+                localStorage.setItem("userId", result.data.user._id);
+
+                // then navigate
+                nav("/home");
+            }
+            else {
+                alert(result.data.message);
+            }
+        })
+
+
+          /* OLD CODE - might need
+        .then((result) => {
             //if the backend confirms that the login works
             if(result.data.message === "Success" ) {
             //will go to the home page
@@ -37,7 +52,7 @@ function Login() {
                 //if there is an error it shows it on backend
                 alert(result.data.message)
             }
-        })
+        }) */
             //if there is error shows message 
         .catch((err) => { alert("Login Failed") });
     

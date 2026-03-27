@@ -64,7 +64,11 @@ export default function ViewItemsPage() {
 
     axios
 
-      .get("http://localhost:3001/api/foods/all")
+      .get("http://localhost:3001/api/foods/all", {
+          params: {
+          userId: localStorage.getItem("userId")
+                  }
+        })
 
       .then((response) => {
 
@@ -193,6 +197,8 @@ export default function ViewItemsPage() {
         quantity: quantity || 1,
 
         expirationDate: expirationVal,
+
+        user: localStorage.getItem("userId")
 
       })
 
