@@ -5,12 +5,15 @@ import axios from "axios";
  
 import {useState } from "react";
 
+//import { useNavigate } from "react-router-dom";
+
 export default function Home() {
 
   const [foodForm, setFoodForm] = useState(false);
   const[expirationDate, setExpirationDate] = useState("") ;
   const[foodItem, setFoodItem] = useState("");
   const[quantity, setQuantity] = useState("")
+  //const nav = useNavigate();
 //if the form is canceled or submitted, the form fields are cleared/removed
   const removeFields = () => {
     setFoodItem("");
@@ -25,6 +28,8 @@ export default function Home() {
       alert("Please fill in the required fields!");
       
     }
+
+
    
     //sends food item and the expiration date to the backend
     axios.post("http://localhost:3001/api/foods/add", 

@@ -2,13 +2,15 @@
 //importing react tools
 import { useEffect, useRef, useState } from "react";
 //importing Link to move within pages without refreshing them 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 //importing style
 import "./Navigation.css";
 
 export default function Navigation() {
   //keeps track if the menu is open or closed
   const [open, setOpen] = useState(false);
+
+  const nav = useNavigate();
 
   //refers to the drop down menu and use it to detect clicks
   const menuRef = useRef(null);
@@ -18,6 +20,8 @@ export default function Navigation() {
 
     //check is we clicked outside of menu
     function handleClickOutside(e) {
+
+      
 
       //if the menu exists and the click was outside, close the menu
       if (menuRef.current && !menuRef.current.contains(e.target)) {
@@ -29,6 +33,13 @@ export default function Navigation() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  const handleLogout = () => {
+  localStorage.removeItem("userId"); // clear user session
+  setOpen(false); // close menu
+  nav("/"); // redirect to login 
+  };
+
 
   return (
     <header className="topbar">
@@ -53,6 +64,9 @@ export default function Navigation() {
             <Link to="/recipes" onClick={() => setOpen(false)}>
               Recipes
             </Link>
+            <button onClick={handleLogout} className="logout-btn">
+              Logout
+            </button>
           </nav>
         )}
       </div>
