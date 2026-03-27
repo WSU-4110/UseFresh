@@ -35,9 +35,9 @@ export default function Navigation() {
   }, []);
 
   const handleLogout = () => {
-  localStorage.removeItem("userId"); // clear user session
-  setOpen(false); // close menu
-  nav("/"); // redirect to login 
+  localStorage.removeItem("userId");
+  setOpen(false);
+  nav("/", { replace: true }); 
   };
 
 

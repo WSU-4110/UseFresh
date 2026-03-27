@@ -9,6 +9,14 @@ import {useState } from "react";
 
 export default function Home() {
 
+  const nav = useNavigate();
+
+  useEffect(() => {
+    if (!localStorage.getItem("userId")) {
+      nav("/", { replace: true });
+    }
+  }, []);
+
   const [foodForm, setFoodForm] = useState(false);
   const[expirationDate, setExpirationDate] = useState("") ;
   const[foodItem, setFoodItem] = useState("");
@@ -29,8 +37,6 @@ export default function Home() {
       
     }
 
-
-   
     //sends food item and the expiration date to the backend
     axios.post("http://localhost:3001/api/foods/add", 
       { foodItem: foodItem, quantity: quantity, expirationDate: expirationDate, user: localStorage.getItem("userId")})
