@@ -3,9 +3,9 @@ import "./Home.css";
 //axios is used to send fronend data to backend
 import axios from "axios";
  
-import {useState } from "react";
+import {useState, useEffect } from "react";
 
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
 

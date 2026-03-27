@@ -41,7 +41,7 @@ function Login() {
         })
 
 
-          /*
+          /* OLD CODE - might need
         .then((result) => {
             //if the backend confirms that the login works
             if(result.data.message === "Success" ) {
