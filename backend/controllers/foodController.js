@@ -1,6 +1,28 @@
 const FoodItem = require("../models/FoodItem");
+const { validateFoodInput, sanitizeFoodInput } = require("../utils/authUtils");
 
 //This is the logic that adds the food items to teh database
+exports.addFood = async (req, res) => {
+  try {
+    const error = validateFoodInput(req.body);
+    if (error) return res.status(400).json({ error });
+
+    const cleanData = sanitizeFoodInput(req.body);
+
+    const newFood = new FoodItem({
+      ...cleanData,
+      user: req.body.user
+    });
+
+    const savedFood = await newFood.save();
+    res.status(201).json(savedFood);
+
+  } catch (error) {
+    res.status(500).json({ error: "Unable to add food item" });
+  }
+};
+
+/* CODE W/OUT HASHING
 exports.addFood = async (req, res) => {
   try {
 
@@ -20,7 +42,7 @@ exports.addFood = async (req, res) => {
     console.error(error);
     res.status(500).json({ error: "Unable to add food item" });
   }
-};
+}; */
 
 exports.getFoods = async (req, res) => {
   try {
