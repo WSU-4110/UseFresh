@@ -19,6 +19,9 @@ Return ONLY valid JSON in this format:
     if (!text) {
       throw new Error("No content returned from model");
     }
+    else if (typeof text !== "string") {
+      throw new Error("Failed to parse model response as JSON");
+    }
 
     try {
       return JSON.parse(text);

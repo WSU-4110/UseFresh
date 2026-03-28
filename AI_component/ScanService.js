@@ -50,7 +50,7 @@ Return ONLY valid JSON:
 
   parseVisionResponse(text) {
     if (!text) {
-      throw new Error("No content returned from vision model");
+      throw new Error("Nothing returned from vision model");
     }
 
     const cleaned = text
@@ -124,7 +124,7 @@ Return ONLY valid JSON:
           ]
         }
       ],
-      max_tokens: 200,
+      max_tokens: 300,
       temperature: 0.2
     });
 
