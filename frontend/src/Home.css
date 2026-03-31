@@ -16,14 +16,14 @@
   position: relative;
 }
 
+/* LOGO POSITIONED ON LEFT AND SAME SIZE AS VIEW ITEMS */
 .home-page::before {
   content: "";
-  top: 20px;
-  width: 160px;
-  height: 160px;
-  left: 570px;
   position: absolute;
-  margin: 0 auto;
+  top: 18px;
+  left: 16px;
+  width: 185px;
+  height: 185px;
   background-image: url("./Logo/UseFreshLogo.png");
   background-repeat: no-repeat;
   background-position: center;
@@ -49,21 +49,22 @@
   margin-right: auto;
   font-family: Georgia, "Times New Roman", Times, serif;
 }
+
 /*this is the background when the form is open and in the middle of the screen*/
 .form-background {
   position: fixed;
   top: 0;
-  left:0;
+  left: 0;
   width: 100%;
   justify-content: center;
   height: 100%;
   background: rgba(0,0,0,0.45);
   align-items: center;
-  z-index:1000;
+  z-index: 1000;
   display: flex;
-  
 }
-/*this is the form that is displayed afted add item button is selected*/
+
+/*this is the form that is displayed after add item button is selected*/
 .form-box {
   width: 450px;
   padding: 28px;
@@ -72,78 +73,81 @@
   background: #f2e9db;
   box-shadow: 0 12px 30px rgba(0,0,0,0.2);
   text-align: left;
-
 }
+
 /*this is for the design of the labels on the form*/
-.form-box label{
+.form-box label {
   margin-bottom: 6px;
-  font-family: Georgia, "Times New Roman", Times, serif ;
-  color: #594838 ;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  color: #594838;
   display: block;
-
 }
-/* this is for the desgin of the title that is on the form*/
+
+/*title on the form*/
 .form-box h2 {
-  text-align:center;
+  text-align: center;
   color: #2f5139;
-  font-family: "Times New Roman", Times, serif ;
+  font-family: "Times New Roman", Times, serif;
   font-style: italic;
   margin-bottom: 20px;
 }
-/*this is the add item button that opens up the food form*/
-.main-btn{
+
+/*add item button that opens the food form*/
+.main-btn {
   color: #f2e9db;
-  font-family: "Times New Roman", Times, serif ;
+  font-family: "Times New Roman", Times, serif;
   font-size: 1.4rem;
   margin-top: 12px;
   min-width: 260px;
-  border:2px solid #2d5932;
+  border: 2px solid #2d5932;
   font-weight: 520;
   cursor: pointer;
   background: linear-gradient(180deg, #3b6f56 0%, #2f5a45 100%);
-  
 }
-/*when users mouse is hovering over the screen there there is a brightness over the button*/
-.main-btn:hover{
+
+.main-btn:hover {
   filter: brightness(1.05);
 }
-/*this is the add item button on the food form that saves the food to the inventory*/
-.saveFood-btn{
+
+/*save button on the food form*/
+.saveFood-btn {
   color: #f2e9db;
-  font-family: "Times New Roman", Times, serif ;
+  font-family: "Times New Roman", Times, serif;
   font-size: 1.2rem;
   margin-top: 12px;
   min-width: 260px;
-
-  border:2px solid #2d5932;
+  border: 2px solid #2d5932;
   font-weight: 520;
   cursor: pointer;
   background: linear-gradient(180deg, #3b6f56 0%, #2f5a45 100%);
-  
 }
-.saveFood-btn:hover{
+
+.saveFood-btn:hover {
   filter: brightness(1.05);
 }
-/*this is the cancel button on the food form*/
+
+/*cancel button*/
 .cancel-btn {
   color: #594838;
-  border:2px solid #594838;
+  border: 2px solid #594838;
   margin-top: 10px;
   margin-left: 10px;
   border-radius: 10px;
   cursor: pointer;
   padding: 10px 16px;
   background: rgb(239, 236, 224);
+}
 
-}/*input filds in the food form*/
+/*input fields*/
 .form-box input {
   padding: 6px;
   margin-bottom: 10px;
   width: 100%;
 }
-/*the spacing for buttons*/
-.button-section{
-  margin-top:24px;
+
+/*spacing for buttons*/
+.button-section {
+  margin-top: 24px;
 }
 
 @media (max-width: 640px) {
