@@ -76,8 +76,9 @@
   text-align: center;
   position: relative;
 }
+
 .view-items-page {
-   width: 100%;
+  width: 100%;
   max-width: none;
   min-height: calc(100vh - 110px);
   margin: 0;
@@ -100,19 +101,7 @@
   left: 16px;
   width: 185px;
   height: 185px;
-  object-fit: contain;}
-.view-items-page::before {
-  content: "";
-  position: absolute; 
-  width: 160px;
-  height: 160px;
-  top: 10px;
-  left: 390px;
-  margin: 0 auto;
-  background-image: url("./Logo/UseFreshLogo.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
+  object-fit: contain;
 }
 
 .view-items-page h1 {
@@ -130,11 +119,11 @@
   font-size: 1.35rem;
   line-height: 1.65;
   color: #594838;
-  margin-bottom: 14px;
   max-width: 65ch;
   margin-right: auto;
   margin-left: auto;
 }
+
 .item-actions {
   margin-top: 12px;
   display: flex;
@@ -142,20 +131,8 @@
   gap: 14px;
   flex-wrap: wrap;
 }
-.addItem-btn{
-  color: #f2e9db;
-  font-family: "Times New Roman", Times, serif ;
-  font-size: 1.4rem;
-  margin-top: 0;
-  min-width: 260px;
-  border:2px solid #2d5932;
-  font-weight: 520;
-  cursor: pointer;
-  background: linear-gradient(180deg, #3b6f56 0%, #2f5a45 100%);
-}
-.addItem-btn:hover{
-  filter: brightness(1.01);
-}
+
+.addItem-btn,
 .removeItem-btn,
 .editItem-btn {
   color: #f2e9db;
@@ -167,25 +144,26 @@
   cursor: pointer;
   background: linear-gradient(180deg, #3b6f56 0%, #2f5a45 100%);
 }
+
+.addItem-btn:hover,
 .removeItem-btn:hover,
 .editItem-btn:hover {
   filter: brightness(1.01);
 }
-/*this is the background when the form is open and in the middle of the screen*/
+
 .form-background {
   position: fixed;
   top: 0;
-  left:0;
+  left: 0;
   width: 100%;
   display: flex;
   height: 100%;
   background: rgba(0,0,0,0.45);
   justify-content: center;
   align-items: center;
-  z-index:1000;
-  
+  z-index: 1000;
 }
-/*this is the form that is displayed afted add item button is selected*/
+
 .form-box {
   width: 450px;
   padding: 28px;
@@ -194,108 +172,91 @@
   background: #f2e9db;
   box-shadow: 0 12px 30px rgba(0,0,0,0.2);
   text-align: left;
-
-}/*this is for the design of the labels on the form*/
-.form-box label{
-  margin-bottom: 6px;
-  font-family: Georgia, "Times New Roman", Times, serif ;
-  color: #594838 ;
-  display: block;
-
 }
-/* this is for the desgin of the title that is on the form, */
+
+.form-box label {
+  margin-bottom: 6px;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  color: #594838;
+  display: block;
+}
+
 .form-box h2 {
-  text-align:center;
+  text-align: center;
   color: #2f5139;
-  font-family: "Times New Roman", Times, serif ;
+  font-family: "Times New Roman", Times, serif;
   font-style: italic;
   margin-bottom: 20px;
-  margin-top:10px;
+  margin-top: 10px;
 }
-/*this is the add item button that opens up the food form*/
-.main-btn{
+
+.main-btn,
+.saveFood-btn {
   color: #f2e9db;
-  font-family: "Times New Roman", Times, serif ;
-  font-size: 1.4rem;
-  margin-top: 12px;
-  min-width: 260px;
-  border:2px solid #2d5932;
-  font-weight: 520;
-  cursor: pointer;
-  background: linear-gradient(180deg, #3b6f56 0%, #2f5a45 100%);
-  
-}/*when users mouse is hovering over the screen there there is a brightness over the button*/
-.main-btn:hover{
-  filter: brightness(1.0);
-}/*this is the add item button on the food form that saves the food to the inventory*/
-.saveFood-btn{
-  color: #f2e9db;
-  font-family: "Times New Roman", Times, serif ;
+  font-family: "Times New Roman", Times, serif;
   font-size: 1.2rem;
   margin-top: 12px;
   min-width: 260px;
-
-  border:2px solid #2d5932;
+  border: 2px solid #2d5932;
   font-weight: 520;
   cursor: pointer;
   background: linear-gradient(180deg, #3b6f56 0%, #2f5a45 100%);
-  
 }
-.saveFood-btn:hover{
+
+.saveFood-btn:hover,
+.main-btn:hover {
   filter: brightness(1.05);
 }
-/*this is the cancel button on the food form*/
+
 .cancel-btn {
   color: #594838;
-  border:2px solid #594838;
+  border: 2px solid #594838;
   margin-top: 10px;
   margin-left: 10px;
-   border-radius: 10px;
+  border-radius: 10px;
   cursor: pointer;
   padding: 10px 16px;
   background: rgb(239, 236, 224);
 }
+
 .form-box input {
   padding: 6px;
   margin-bottom: 10px;
   width: 100%;
 }
-.button-section{
-  margin-top:30px;
-}
-/*container for the table that holds the food that the user adds*/
-.food-table {
 
-  margin-top:50px;
+.button-section {
+  margin-top: 30px;
+}
+
+.food-table {
+  margin-top: 50px;
   width: 80%;
   margin-right: auto;
-  margin-left:auto;
-  
-
+  margin-left: auto;
 }
-/*displays the headers and the columns of food item, quantity, expiration date, daysleft*/
+
 .food-header {
-  display:grid;
+  display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   align-items: center;
   font-weight: 12px;
   color: #2f5139;
-  padding:12px;
+  padding: 12px;
   border: 2px solid #594838;
-  font-family: "Times New Roman", Times, serif ;
+  font-family: "Times New Roman", Times, serif;
   font-size: 1.2rem;
 }
-/*the styling of each row that will show the food information*/
-.food-row{
-  display:grid;
+
+.food-row {
+  display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   align-items: center;
-    border-radius: 5px;
+  border-radius: 5px;
   margin-top: 5px;
-   font-family: Georgia, "Times New Roman", Times, serif ;
-   color: #594838;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  color: #594838;
 }
-
 
 @media (max-width: 640px) {
   .view-items-page {
@@ -314,6 +275,7 @@
     font-size: 1.2rem;
   }
 }
+
 .scan-result {
   width: min(480px, 90%);
   margin: 14px auto 0;
