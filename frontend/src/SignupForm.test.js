@@ -2,14 +2,14 @@ import SignupForm from "./SignupForm";
 
 describe("SignupForm", () => {
 
-  test.skip("Checks required fields ", () => {
+  test("Checks required fields ", () => {
 
     const form = new SignupForm("", "", "");
      expect(form.hasTheRequiredFields()).toBe(false);
     console.log("Unit Test Case: Checks to see if all required fields are filled in");
   });
 
-  test.skip("Checks the password length", () => {
+  test("Checks the password length", () => {
     const form = new SignupForm("Beky", "Beky@gmail.com", "Passwd");
 
     expect(form.isPasswordLongEnough()).toBe(false);
@@ -17,7 +17,7 @@ describe("SignupForm", () => {
 
   });
 
-  test.skip("Checks the email format",  () => {
+  test("Checks the email format",  () => {
 
     const form = new SignupForm("Beky", "invalidemail", "P@ssword");
     expect(form.validEmail()).toBe(false);
@@ -25,7 +25,7 @@ describe("SignupForm", () => {
   });
 
 
-  test.skip("Checks required fields and sees if user input is valid", () => {
+  test("Checks required fields and sees if user input is valid", () => {
 
     const form = new SignupForm("Beky", "Beky@gmail.com", "P@ssword");
     expect(form.hasTheRequiredFields()).toBe(true );

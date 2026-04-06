@@ -10,7 +10,7 @@ describe("SignupService",  () => {
     jest.clearAllMocks();
   });
 
-  test.skip("Successful account creation", async () => {
+  test("Successful account creation", async () => {
     axios.post.mockResolvedValue({ data: {} });
     const form = new SignupForm("Beky", "Beky@gmail.com", "P@ssword");
     const part = new SignupPart();
@@ -28,7 +28,7 @@ describe("SignupService",  () => {
 
     console.log("Unit Test Case: Checks to make sure a successful account creation request works");
   });
-  test.only("Failed signup request", () => {
+  test("Failed signup request", () => {
     const part = new SignupPart();
     const err = {
 
