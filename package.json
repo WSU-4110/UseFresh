@@ -1,4 +1,13 @@
 {
+  "name": "usefresh",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "npm run build --prefix frontend",
+    "test": "npm run test:frontend && npm run test:backend && npm run test:ai",
+    "test:frontend": "npm test --prefix frontend",
+    "test:backend": "npm test --prefix backend",
+    "test:ai": "npm test --prefix AI_component"
+  },
   "dependencies": {
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
