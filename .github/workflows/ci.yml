@@ -23,15 +23,15 @@ jobs:
       # ── BUILD (install all dependencies) ───────────────────
       - name: Install frontend dependencies
         working-directory: frontend
-        run: npm install
+        run: npm ci
 
       - name: Install backend dependencies
         working-directory: backend
-        run: npm install
+        run: npm ci
 
       - name: Install AI component dependencies
         working-directory: AI_component
-        run: npm install
+        run: npm ci
 
       # ── TESTS ──────────────────────────────────────────────
       - name: Run frontend tests
