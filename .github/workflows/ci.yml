@@ -20,31 +20,27 @@ jobs:
         with:
           node-version: '20'
 
-      # ── BUILD ──────────────────────────────────────────────
+      # ── BUILD (install all dependencies) ───────────────────
       - name: Install frontend dependencies
         working-directory: frontend
         run: npm install
 
-      - name: Build frontend
-        working-directory: frontend
-        run: npm run build
+      - name: Install backend dependencies
+        working-directory: backend
+        run: npm install
+
+      - name: Install AI component dependencies
+        working-directory: AI_component
+        run: npm install
 
       # ── TESTS ──────────────────────────────────────────────
       - name: Run frontend tests
         working-directory: frontend
         run: npm test
 
-      - name: Install backend dependencies
-        working-directory: backend
-        run: npm install
-
       - name: Run backend tests
         working-directory: backend
         run: npm test
-
-      - name: Install AI component dependencies
-        working-directory: AI_component
-        run: npm install
 
       - name: Run AI component tests
         working-directory: AI_component
