@@ -31,7 +31,7 @@ jobs:
 
       - name: Install AI component dependencies
         working-directory: AI_component
-        run: npm ci
+        run: npm install
 
       # ── TESTS ──────────────────────────────────────────────
       - name: Run frontend tests
