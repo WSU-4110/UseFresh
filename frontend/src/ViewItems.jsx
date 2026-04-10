@@ -1,11 +1,7 @@
 import { useRef, useState, useEffect } from "react";
-
 import "./ViewItems.css";
-
 import useFreshLogo from "./Logo/UseFreshLogo.png";
-
 import axios from "axios";
-
  
 
 export default function ViewItemsPage() {
@@ -15,8 +11,6 @@ export default function ViewItemsPage() {
   const canvasRef = useRef(null);
 
   const streamRef = useRef(null);
-
- 
 
   const [cameraOpen, setCameraOpen] = useState(false);
 
@@ -51,37 +45,26 @@ export default function ViewItemsPage() {
  
 
   const [expirationVal, setExpirationVal] = useState("");
-
   const [foodItem, setFoodItem] = useState("");
-
   const [food, setFood] = useState([]);
-
   const [quantity, setQuantity] = useState("");
-
+  const [search, setSearch] = useState("");
  
-
+//gets all of the food items from the backend with get request, if successful the food items are then in a food state var
   useEffect(() => {
-
     axios
-
       .get("http://localhost:3001/api/foods/all", {
           params: {
           userId: localStorage.getItem("userId")
                   }
         })
-
       .then((response) => {
-
         setFood(response.data);
-
       })
-
+      //if not successful error message is displayed
       .catch(() => {
-
         alert("There was an issue loading the food items");
-
       });
-
   }, []);
 
  
@@ -104,10 +87,8 @@ export default function ViewItemsPage() {
 
   const removeFields = () => {
 
-    setFoodItem("");
-
+    setFoodItem("") ;
     setExpirationVal("");
-
     setExpirationDate("");
 
     setQuantity("");
@@ -117,7 +98,6 @@ export default function ViewItemsPage() {
     setRemoveFoodForm(false);
 
     setEditFoodForm(false);
-
   };
 
  
@@ -125,30 +105,18 @@ export default function ViewItemsPage() {
   const calculateDaysLeft = (expirationVal) => {
 
     const today = new Date();
-
     const expire = new Date(expirationVal);
-
- 
-
     today.setHours(0, 0, 0, 0);
-
     expire.setHours(0, 0, 0, 0);
 
- 
-
     const subtract = expire - today;
-
     const daysLeft = Math.ceil(subtract / (1000 * 60 * 60 * 24));
 
- 
 
     if (daysLeft < 0) {
-
       return "Expired";
 
     }
-
- 
 
     return daysLeft;
 
@@ -159,11 +127,8 @@ export default function ViewItemsPage() {
   const formatDate = (dateVal) => {
 
     return new Date(dateVal).toLocaleDateString("en-US", {
-
       month: "2-digit",
-
       day: "2-digit",
-
       year: "2-digit",
 
     });
@@ -175,9 +140,6 @@ export default function ViewItemsPage() {
   const handleSubmit = (e) => {
 
     e.preventDefault();
-
- 
-
     if (!expirationVal || !foodItem) {
 
       alert("Please fill in the required fields!");
@@ -185,35 +147,31 @@ export default function ViewItemsPage() {
       return;
 
     }
-
- 
-
+    
+    if(quantity <= 0) {
+      alert("Quantity must be at least 1. ");
+      return;
+    }
+//post call is made to backend to add food, item quanity, expiration date and the userid 
     axios
-
       .post("http://localhost:3001/api/foods/add", {
 
         foodItem: foodItem,
-
         quantity: quantity || 1,
-
         expirationDate: expirationVal,
-
         user: localStorage.getItem("userId")
 
       })
-
+//if successful food item is added to that food state var
       .then((response) => {
 
         const newFood = response.data;
-
         setFood([...food, newFood]);
-
         removeFields();
 
       })
-
+//if not successful error message is displayed
       .catch(() => {
-
         alert("Unable to add food item. Try again later!");
 
       });
@@ -226,7 +184,6 @@ export default function ViewItemsPage() {
 
     e.preventDefault();
 
- 
 
     if (!foodItem) {
 
@@ -768,7 +725,7 @@ export default function ViewItemsPage() {
 
   };
 
- 
+ const foodSearched = food.filter((item ) => item.foodItem.toLowerCase().includes(search.toLocaleLowerCase()));
 
   return (
 
@@ -1091,83 +1048,56 @@ export default function ViewItemsPage() {
       {foodForm && (
 
         <div className="form-background">
-
           <div className="form-box">
-
             <h2>Add Food Item</h2>
 
             <form onSubmit={handleSubmit}>
 
               <label>Food Name</label>
-
               <input
 
                 type="text"
-
                 placeholder="Enter food name"
-
                 value={foodItem}
-
                 onChange={(e) => setFoodItem(e.target.value)}
 
               />
 
- 
-
               <label>Quantity</label>
-
               <input
 
                 type="number"
-
                 placeholder="Enter food quantity"
-
                 value={quantity}
-
                 onChange={(e) => setQuantity(e.target.value)}
+                min="1"
 
               />
-
- 
-
               <label>Expiration Date</label>
-
               <input
 
                 type="date"
-
                 value={expirationVal}
-
                 onChange={(e) => setExpirationVal(e.target.value)}
-
               />
 
  
 
               <button type="submit" className="saveFood-btn">
-
                 Save food item
-
               </button>
 
               <button
-
                 type="button"
-
                 className="cancel-btn"
-
                 onClick={removeFields}
-
               >
-
                 Cancel
-
               </button>
-
             </form>
 
-          </div>
 
+          </div>
         </div>
 
       )}
@@ -1313,35 +1243,44 @@ export default function ViewItemsPage() {
         </div>
 
       )}
-
+{/* Search bar is made to search through the items within the user pantry/inventory */}
+{/* This makes the container of where the search food results will be displayed */}
+    <div style={{ display: "flex", justifyContent: "center", margin : "20px 0"}}>
+      <input 
+       
+       type = "text"
+       placeholder="Search Food Item"
+       value={search}
+       onChange = {(e) => setSearch(e.target.value)}
+       
+       style = {{
+        padding:"8px",
+         width: "250px",
+         borderRadius: "6px ",
+         border: "1px solid #ccc"
+       }}
+      />
+    </div>
  
 
       <div className="food-table">
 
         <div className="food-header">
-
           <span>Food Item</span>
-
           <span>Quantity</span>
-
           <span>Expiration Date</span>
-
           <span>Days Remaining</span>
 
         </div>
 
  
-
-        {food.length === 0 && (
+{/* If there is no food items that match in the search then it shows no items*/}
+        {foodSearched.length === 0 && (
 
           <div className="food-row">
-
             <span>-</span>
-
             <span>-</span>
-
             <span>-</span>
-
             <span>-</span>
 
           </div>
@@ -1349,25 +1288,20 @@ export default function ViewItemsPage() {
         )}
 
  
-
-        {food.map((item, indx) => (
+{/* This goes through the food items that match the search and shows the items as a row in the table*/}
+        {foodSearched.map((item, indx) => (
 
           <div className="food-row" key={indx}>
-
             <span>{item.foodItem}</span>
-
             <span>{item.quantity}</span>
-
             <span>{formatDate(item.expirationDate)}</span>
 
-            <span>{calculateDaysLeft(item.expirationDate)}</span>
+            <span>{calculateDaysLeft(item.expirationDate)} </span>
 
           </div>
-
         ))}
 
       </div>
-
     </div>
 
   );

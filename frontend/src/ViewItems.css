@@ -98,24 +98,11 @@
   position: absolute;
   top: 18px;
   left: 16px;
-  width: 185px;
-  height: 185px;
+  width: 220px;
+  height: 220px;
   object-fit: contain;}
 
   
-/* .view-items-page::before {
-  content: "";
-  position: absolute; 
-  width: 160px;
-  height: 160px;
-  top: 10px;
-  left: 390px;
-  margin: 0 auto;
-  background-image: url("./Logo/UseFreshLogo.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-} */
 
 .view-items-page h1 {
   margin: 0;

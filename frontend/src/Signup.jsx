@@ -56,7 +56,7 @@ function Signup() {
         })
             //catches any error and sends message to backend
         .catch((err) => {
-            alert("err.response.data.error");
+            alert(err.response.data.error);
             
         });
 
@@ -69,10 +69,10 @@ function Signup() {
 return (
     
        <div className = "authentication-page">
-        <div className = "d-flex justify-content-center gap-3">
+      <div className="text-center">
         <img src = {logo}
-        style = {{height: "170px", width : "170px", objectFit: "contain"}} />
-      <h1 className = "m-3">Create Account</h1>
+        style = {{height: "220px", width : "220px", objectFit: "contain", display: "block", margin: "0 auto 12px"}} />
+        <h1>Create Account</h1>
       </div>
       <p className="subtitle">Welcome to UseFresh!</p>
 
