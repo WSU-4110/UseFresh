@@ -1,17 +1,30 @@
+<<<<<<< HEAD
 name: CI Pipeline
+=======
+name: CI
+>>>>>>> 753b7c2c7a1bad1d7a9e3649fdb97d0d4da37e23
 
 on:
   push:
     branches: [ main, Assignment_6 ]
   pull_request:
+<<<<<<< HEAD
     branches: [ main ]
 
 jobs:
   build:
+=======
+    branches: [ main, Assignment_6 ]
+
+jobs:
+  build-and-test:
+    name: Build and Test
+>>>>>>> 753b7c2c7a1bad1d7a9e3649fdb97d0d4da37e23
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
+<<<<<<< HEAD
         uses: actions/checkout@v3
 
       - name: Setup Node
@@ -27,3 +40,37 @@ jobs:
 
       - name: Run tests
         run: npm test
+=======
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # ── BUILD (install all dependencies) ───────────────────
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Install backend dependencies
+        working-directory: backend
+        run: npm ci
+
+      - name: Install AI component dependencies
+        working-directory: AI_component
+        run: npm install
+
+      # ── TESTS ──────────────────────────────────────────────
+      - name: Run frontend tests
+        working-directory: frontend
+        run: npm test
+
+      - name: Run backend tests
+        working-directory: backend
+        run: npm test
+
+      - name: Run AI component tests
+        working-directory: AI_component
+        run: npm test
+>>>>>>> 753b7c2c7a1bad1d7a9e3649fdb97d0d4da37e23
