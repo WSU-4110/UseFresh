@@ -5,7 +5,9 @@
   "scripts": {
     "start": "nodemon index.js",
     "dev": "nodemon index.js",
-    "test": "jest"
+    "build": "echo Build successful",
+    "test": "jest",
+    "ci": "npm run build && npm test"
   },
   "keywords": [],
   "author": "",
