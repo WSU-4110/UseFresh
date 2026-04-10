@@ -43,6 +43,12 @@ function Signup() {
       return;
 
     }
+    if (!email.includes(".")) {
+
+      alert("This email does not exist. Please enter a valid email.");
+      return;
+
+    }
 
 
         //sends post request to backend (register), sends either username and email and password that the user inputted to server
