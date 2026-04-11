@@ -22,7 +22,8 @@ mongoose.connect(process.env.MONGO_URI, {dbName: "usefresh"} )
 const foodSchema = new mongoose.Schema({
   foodItem: String,
   quantity: Number,
-  expirationDate: Date
+  expirationDate: Date,
+  user:{type: mongoose.Schema.Types.ObjectId, ref: "User"}
 });
 
 const Food = mongoose.model("Food", foodSchema,"fooditems");
@@ -31,31 +32,54 @@ app.post("/suggest-recipes", async (req, res) => {
   try {
     console.log("1. /suggest-recipes route hit");
 
-    const foods = await Food.find();
+    const { userId, type, prompt: mealPrompt } = req.body;
+
+    if(!userId) {
+      return res.status(400).json({error: "userId is required"});
+    }
+
+    const soon = new Date();
+    soon.setDate(soon.getDate() + 7);
+
+    let foods = await Food.find({user: userId, expirationDate: {$lte:soon}});
+    if (foods.length === 0) {
+      foods = await Food.find({user: userId});
+    }
+    
+
+    
     console.log("2. Foods fetched from DB:", foods);
 
     const ingredients = foods.map(f => f.foodItem).join(", ");
     console.log("3. Ingredients string:", ingredients);
 
-    const prompt = `
-You are a recipe generator.
+  const baseInstructions = mealPrompt || "Generate one recipe using the provided grocery items.";
 
-Create exactly ONE simple recipe using these pantry ingredients when possible:
-${ingredients}
+  const prompt = `
+  You are a recipe generator.
 
-Rules:
-- Write everything in English.
-- Return ONLY valid JSON.
-- Do not include markdown or code fences.
-- Do not include any text before or after the JSON.
-- Use this exact format:
+  ${baseInstructions}
 
-{
-  "title": string,
-  "ingredients": string[],
-  "steps": string[]
-}
-`.trim();
+  Here are the available pantry ingredients (some expiring soon):
+  ${ingredients}
+
+  Rules:
+  - Write everything in English.
+  - Return ONLY valid JSON.
+  - Do not include markdown or code fences.
+  - Do not include any text before or after the JSON.
+  - Do NOT use all ingredients. Pick only the ones that work well together for this type of meal.
+  - Prioritize ingredients that are expiring soon, but only if they make culinary sense together.
+  - The recipe should taste good and be realistic.
+  - Use this exact format:
+
+  {
+    "title": string,
+    "ingredients": string[],
+    "steps": string[]
+  }
+  `.trim();
+
 
     console.log("4. About to call Hugging Face");
 

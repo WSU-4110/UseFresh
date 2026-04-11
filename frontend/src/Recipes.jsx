@@ -40,12 +40,14 @@ export default function Recipes() {
         };
 
     const prompt = prompts[type] || `Generate one ${type} recipe and return title, ingredients, and steps.`;
+    const userId = localStorage.getItem("userId");
+
 
     try {
       const res = await fetch("http://localhost:5000/suggest-recipes", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type, prompt })
+        body: JSON.stringify({ type, prompt, userId })
       });
 
       console.log("FETCH DONE, status:", res.status);
