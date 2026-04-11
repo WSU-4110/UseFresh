@@ -18,6 +18,12 @@ const registerUser = async (req, res) => {
     res.status(201).json({ _id, username, email });
 
   } catch (err) {
+    // Handle duplicate key (unique) errors from Mongo/Mongoose
+    if (err && err.code === 11000) {
+      const field = Object.keys(err.keyValue || {})[0] || 'value';
+      return res.status(409).json({ error: `${field} already in use` });
+    }
+
     res.status(400).json({ error: err.message });
   }
 };

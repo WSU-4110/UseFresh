@@ -4,44 +4,95 @@ import useFreshLogo from "./Logo/UseFreshLogo.png";
 
 export default function Recipes() {
   const [recipe, setRecipe] = useState(null);
-  const [loading, setLoading] = useState(false);
+  // loadingType holds the meal type currently generating, or null
+  const [loadingType, setLoadingType] = useState(null);
 
-  async function handleGenerateRecipe() {
-  console.log("BUTTON CLICKED"); // proves click works
-  setLoading(true);
+  async function handleGenerateRecipe(type) {
+    console.log("GENERATE CLICKED", type);
+    setLoadingType(type);
 
-  try {
-    console.log("ABOUT TO FETCH...");
-    const res = await fetch("http://localhost:5000/suggest-recipes", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({})  // important
-    });
+    // Define the prompt for each meal type
+    const prompts = {
+      breakfast:
+        `Generate a breakfast recipe using the provided grocery items and prioritize ingredients that expire soon.
+          Only generate a breakfast-style dish such as eggs, toast, oats, smoothies, pancakes, breakfast bowls, or light savory dishes.
+          Do not suggest lunch or dinner meals.
+          Return:
+          - title
+          - ingredients
+          - steps`,
+      lunch:
+        ` Generate a lunch recipe using the provided grocery items and prioritize ingredients that expire soon.
+          Only generate a lunch-style dish such as sandwiches, wraps, salads, rice bowls, soups, or light pasta dishes.
+          Do not suggest breakfast or dinner meals.
+          Return:
+          - title
+          - ingredients
+          - steps`,
+        dinner:
+        ` Generate a dinner recipe using the provided grocery items and prioritize ingredients that expire soon.
+          Only generate a dinner-style dish such as hearty pasta, stir fry, curry, grain bowls, roasted dishes, or full entrees.
+          Do not suggest breakfast or lunch meals.
+          Return:
+          - title
+          - ingredients
+          - steps`,
+        };
 
-    console.log("FETCH DONE, status:", res.status);
-    const data = await res.json();
-    console.log("DATA:", data);
+    const prompt = prompts[type] || `Generate one ${type} recipe and return title, ingredients, and steps.`;
 
-    setRecipe(data);
-  } catch (err) {
-    console.error("FETCH ERROR:", err);
+    try {
+      const res = await fetch("http://localhost:5000/suggest-recipes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type, prompt })
+      });
+
+      console.log("FETCH DONE, status:", res.status);
+      const data = await res.json();
+      console.log("DATA:", data);
+
+      setRecipe(data);
+    } catch (err) {
+      console.error("FETCH ERROR:", err);
+    }
+
+    setLoadingType(null);
   }
-
-  setLoading(false);
-}
 
   return (
     <main className="recipes-page">
       <img src={useFreshLogo} alt="UseFresh logo" className="recipes-logo" />
       <h1>Recipes</h1>
 
-      <button
-        type="button"
-        className="generate-recipe-btn"
-        onClick={handleGenerateRecipe}
-      >
-        {loading ? "Generating..." : "Generate Recipe"}
-      </button>
+      <div className="recipe-btn-group">
+        <button
+          type="button"
+          className="generate-recipe-btn"
+          onClick={() => handleGenerateRecipe('breakfast')}
+          disabled={loadingType === 'breakfast'}
+        >
+          {loadingType === 'breakfast' ? 'Generating...' : 'Generate Breakfast'}
+        </button>
+
+        <button
+          type="button"
+          className="generate-recipe-btn"
+          onClick={() => handleGenerateRecipe('lunch')}
+          disabled={loadingType === 'lunch'}
+        >
+          {loadingType === 'lunch' ? 'Generating...' : 'Generate Lunch'}
+        </button>
+
+        <button
+          type="button"
+          className="generate-recipe-btn"
+          onClick={() => handleGenerateRecipe('dinner')}
+          disabled={loadingType === 'dinner'}
+        >
+          {loadingType === 'dinner' ? 'Generating...' : 'Generate Dinner'}
+        </button>
+      </div>
 
       {recipe && (
         <div className="recipe-container">
