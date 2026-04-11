@@ -42,18 +42,14 @@ const handleSubmit = async (e) => {
         return;
     }
 
-    //try catch block is used to catch any potential errors that occur when sending the post request to the backend. 
+    //try catch block is used to catch any potential errors that occur when sending the post request to the backend.
     //if there is an error then an error message is displayed. If request is successful then message saying " A reset link for your password has been sent to your email. " is displayed.
-/*
-    try{
-        const result = await axios.post("https://localhost:3001/api/user/WAIT FOR BACKEND", {email});
-    
-    alert(result.data.message || "A reset link for your password has been sent to your email. ");
+    try {
+        const result = await axios.post("http://localhost:3001/api/user/forgot-password", { email });
+        alert(result.data.message || "A reset link for your password has been sent to your email.");
+    } catch (err) {
+        alert(err?.response?.data?.error || "An error occurred, please try again later!");
     }
-    catch(err) {
-        alert(err?.response?.data?.error || "An error occured please try again later!")
-    }
-        */
 }
 //the ForgotPassword compontnet returns the page layout for the forgot password page. 
 //user is asked to "Please enter your email to reset your password. "
