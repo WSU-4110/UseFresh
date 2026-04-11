@@ -265,74 +265,89 @@
 .button-section{
   margin-top:30px;
 }
-/*container for the table that holds the food that the user adds*/
+
+
 .food-table {
-
-  margin-top:50px;
-  width: 80%;
+  margin-top: 50px;
+  width: 86%;
   margin-right: auto;
-  margin-left:auto;
-  
-
+  margin-left: auto;
 }
-/*displays the headers and the columns of food item, quantity, expiration date, daysleft*/
+
 .food-header {
-  display:grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1.2fr 1.1fr 0.5fr;
   align-items: center;
-  font-weight: 12px;
+  text-align: center;
   color: #2f5139;
-  padding:12px;
-  border: 2px solid #594838;
-  font-family: "Times New Roman", Times, serif ;
+  padding: 18px 20px;
+  border: 2px solid #6d5c4b;
+  font-family: "Times New Roman", Times, serif;
   font-size: 1.2rem;
+  font-weight: 700;
+  background: rgba(242, 233, 219, 0.7);
+  border-radius: 6px;
 }
-/*the styling of each row that will show the food information*/
-.food-row{
-  display:grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+
+.food-row {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1.2fr 1.1fr 0.5fr;
   align-items: center;
-    border-radius: 5px;
-  margin-top: 5px;
-   font-family: Georgia, "Times New Roman", Times, serif ;
-   color: #594838;
-}
-
-
-@media (max-width: 640px) {
-  .view-items-page {
-    min-height: calc(100vh - 96px);
-    padding: 22px 18px;
-  }
-
-  .view-items-logo {
-    width: 110px;
-    height: 110px;
-    top: 12px;
-    left: 8px;
-  }
-
-  .view-items-page p {
-    font-size: 1.2rem;
-  }
-}
-.scan-result {
-  width: min(480px, 90%);
-  margin: 14px auto 0;
-  padding: 16px 18px;
-  background: #f7f1e7;
-  border-radius: 18px;
-  border: 1px solid rgba(61, 50, 36, 0.12);
-  text-align: left;
-}
-
-.scan-result p {
-  margin: 8px 0;
+  text-align: center;
+  padding: 26px 20px;
+  margin-top: 12px;
+  border-radius: 14px;
+  font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 1rem;
+  font-weight: 600;
+  box-shadow: 0 6px 14px rgba(61, 50, 36, 0.08);
+  border: 1px solid rgba(89, 72, 56, 0.12);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
 }
 
-.scan-hint {
-  font-size: 0.95rem;
-  color: #7a6754;
-  margin-top: 10px;
+.food-row span {
+  color: inherit;
+}
+
+.food-row:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 18px rgba(61, 50, 36, 0.12);
+  filter: brightness(0.99);
+}
+
+.food-row-red {
+  background: linear-gradient(180deg, #d9b7b2 0%, #cfaca7 100%);
+  color: #4f342f;
+}
+
+.food-row-yellow {
+  background: linear-gradient(180deg, #e6dcc0 0%, #ddd1b1 100%);
+  color: #54452f;
+}
+
+.food-row-green {
+  background: linear-gradient(180deg, #cadcc8 0%, #bfd3bd 100%);
+  color: #314b36;
+}
+
+.delete-btn {
+  background: rgba(255, 250, 242, 0.45);
+  border: 1px solid rgba(89, 72, 56, 0.18);
+  border-radius: 10px;
+  width: 42px;
+  height: 42px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #594838;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+}
+
+.delete-btn:hover {
+  transform: scale(1.08);
+  background: rgba(255, 250, 242, 0.8);
+  box-shadow: 0 4px 10px rgba(61, 50, 36, 0.12);
 }
