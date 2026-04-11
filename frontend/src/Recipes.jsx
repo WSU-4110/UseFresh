@@ -10,12 +10,14 @@ export default function Recipes() {
   console.log("BUTTON CLICKED"); // proves click works
   setLoading(true);
 
+  const userId = localStorage.getItem("userId");
+
   try {
     console.log("ABOUT TO FETCH...");
     const res = await fetch("http://localhost:5000/suggest-recipes", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({})  // important
+      body: JSON.stringify({userId})  // important
     });
 
     console.log("FETCH DONE, status:", res.status);

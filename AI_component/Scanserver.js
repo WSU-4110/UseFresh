@@ -22,7 +22,8 @@ mongoose.connect(process.env.MONGO_URI, {dbName: "usefresh"} )
 const foodSchema = new mongoose.Schema({
   foodItem: String,
   quantity: Number,
-  expirationDate: Date
+  expirationDate: Date,
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
 });
 
 const Food = mongoose.model("Food", foodSchema,"fooditems");
