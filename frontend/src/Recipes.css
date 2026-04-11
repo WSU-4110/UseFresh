@@ -68,7 +68,8 @@
   line-height: 1.5;
 }
 
-.generate-recipe-btn {
+.generate-recipe-btn,
+.save-recipe-btn {
   margin-top: 14px;
   min-width: 260px;
   padding: 14px 22px;
@@ -93,6 +94,7 @@
   gap: 12px;
   margin: 16px 0;
 }
+
 
 @media (max-width: 640px) {
   .recipe-btn-group {

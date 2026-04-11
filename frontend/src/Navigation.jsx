@@ -64,6 +64,9 @@ export default function Navigation() {
             <Link to="/recipes" onClick={() => setOpen(false)}>
               Recipes
             </Link>
+            <Link to="/saved" onClick={() => setOpen(false)}>
+              Saved Recipes
+            </Link>
             <button onClick={handleLogout} className="logout-btn">
               Logout
             </button>

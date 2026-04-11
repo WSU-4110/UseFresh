@@ -60,6 +60,46 @@ export default function Recipes() {
     setLoadingType(null);
   }
 
+  // Save current recipe to backend for the logged-in user
+  const [saving, setSaving] = useState(false);
+  const handleSaveRecipe = async () => {
+    if (!recipe) return;
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      alert('Please log in to save recipes.');
+      return;
+    }
+
+    setSaving(true);
+    try {
+      const payload = {
+        title: recipe.title || 'Untitled',
+        ingredients: recipe.ingredients || [],
+        steps: recipe.steps || [],
+        type: recipe.type || null,
+        user: userId
+      };
+
+      const res = await fetch('http://localhost:3001/api/recipes/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || 'Save failed');
+      }
+
+      alert('Recipe saved.');
+    } catch (err) {
+      console.error('Save error:', err);
+      alert('Failed to save recipe.');
+    }
+
+    setSaving(false);
+  };
+
   return (
     <main className="recipes-page">
       <img src={useFreshLogo} alt="UseFresh logo" className="recipes-logo" />
@@ -115,6 +155,17 @@ export default function Recipes() {
                 <li key={idx}>{step}</li>
               ))}
             </ol>
+          </div>
+
+          <div style={{ marginTop: 16, textAlign: 'center' }}>
+            <button
+              type="button"
+              className="save-recipe-btn"
+              onClick={handleSaveRecipe}
+              disabled={saving}
+            >
+              {saving ? 'Saving...' : 'Save Recipe'}
+            </button>
           </div>
 
         </div>
