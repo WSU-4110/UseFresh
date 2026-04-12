@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Authentication.css";
 import axios from "axios"
@@ -16,6 +16,11 @@ function RequiredLabel({children, required}) {
 }
 
 function Signup() {
+
+  useEffect(() => {
+    document.title = "Signup - UseFresh";
+  }, []);
+
 //state variables are created to store the password/username/email and is able to update them when user input is entered
   const [username, setUsername] = useState("");
   const [email,setEmail] = useState("");

@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./Recipes.css";
 import useFreshLogo from "./Logo/UseFreshLogo.png";
 
 export default function Recipes() {
+
+  useEffect(() => {
+  document.title = "Recipes - UseFresh";
+  }, []);
+
   const [recipe, setRecipe] = useState(null);
   // loadingType holds the meal type currently generating, or null
   const [loadingType, setLoadingType] = useState(null);

@@ -14,31 +14,16 @@ export default function Home() {
       //also prevents the user from going back to the home page 
       nav("/", { replace: true });
     }
+    
+    document.title = "Home - UseFresh";
   }, []);
 //stores information that user inputs, and controls whether food form is shown, as well as storing all the food items from the backend. 
   const [foodForm, setFoodForm] = useState(false);
   const[expirationDate, setExpirationDate] = useState("") ;
   const[foodItem, setFoodItem] = useState("");
-  const[quantity, setQuantity] = useState("")
-  const[food, setFood] = useState([]);
- 
-
-  //when page loads a get request is sent to the backend to get the food from the users pantry/inventory, the userId is the parameter which is sent. 
-  useEffect(() => {
-    axios.get("http://localhost:3001/api/foods/all", {
-      params: { userId: localStorage.getItem("userId"), },
-    })
-    //if successful in getting the food, the food is stored in a food state var. 
-        .then((response) => {
-          setFood(response.data);
-        })
-        //if food items cannot be loaded from the backend then an error message is displayed . 
-        .catch(() => {
-          alert("Unable to load food items from pantry");
-        });
-  }, []); 
-
-
+  const[quantity, setQuantity] = useState("");
+  const [loading, setLoading] = useState(false);
+  //const nav = useNavigate();
 //if the form is canceled or submitted, the form fields are cleared/removed
   const removeFields = () => {
     setFoodItem("");
@@ -46,85 +31,39 @@ export default function Home() {
   setQuantity("");
   setFoodForm(false);
   }
-//function which calculates the number of days left before food expires. 
 
-  const calculateDaysLeft = (expirationVal) => {
-    //var today for current date, var expire for expiration date
-    const today = new Date();
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    const expire = new Date(expirationVal);
-    //only the dates are compared not time so time is set to 0. 
-    today.setHours(0, 0, 0, 0);
-    expire.setHours(0, 0, 0, 0);
-//gets the different and converts from miliseconds to days. 
-    const subtract = expire - today;
-    const daysLeft = Math.ceil(subtract / (1000 * 60 * 60 * 24));
+  // validation FIRST 
+  if (!expirationDate || !foodItem || !quantity) {
+    alert("Please fill in the required fields!");
+    return;
+  }
 
- //if loop to see if the food is expired, if so then "Expired" is returned
- // If not then the number of days left is returned.
-    if (daysLeft < 0) {
-      return "Expired";
-    }
-    return daysLeft;
+  setLoading(true); // START loading
 
-  };
-
- 
-
-  const formatDate = (dateVal) => {
-    //date is formatted to be month /day /year
-    return new Date(dateVal).toLocaleDateString("en-US", {
-      month: "2-digit",
-      day: "2-digit",
-      year: "2-digit",
+  try {
+    await axios.post("http://localhost:3001/api/foods/add", {
+      foodItem: foodItem,
+      quantity: quantity,
+      expirationDate: expirationDate,
+      user: localStorage.getItem("userId"),
     });
 
-  };
+    alert("Food item successfully added!");
+    removeFields();
 
-  const handleSubmit = (e) => { 
-    e.preventDefault();
-    //checks to see if any fields are missing if, the are error message is displayed
-    if(!expirationDate || !foodItem || !quantity) {
-      alert("Please fill in the required fields!");
-      return;
-      
-    }
+  } catch (err) {
+    console.log(err);
+    alert("Unable to add food item. Try again later!");
 
-    if(quantity <= 0) {
-      alert("Quantity must be at least 1. ");
-      return;
-    }
-
-    //sends food item and the expiration date to the backend, updates the page without the user having to refresh the page.
-    axios.post("http://localhost:3001/api/foods/add", 
-      { foodItem: foodItem, quantity: quantity, expirationDate: expirationDate, user: localStorage.getItem("userId")})
-    .then (() => { 
-      alert("Food item successfully added!")
-      setFood((prevFood) => [...prevFood, { foodItem, quantity, expirationDate }]);
-    removeFields();})
-    .catch(() => {
-       alert ("Unable to add food item. Try again later!")});
-  };  
-//expiring soon, filters through the food itmes
-  const expiringSoon = food.filter((item) => {
-    //if the number of days left is less than or equal to 3 then the food item is considered to be expiring soon.
-    const daysLeft = calculateDaysLeft(item.expirationDate);
-    return daysLeft !== "Expired" && daysLeft <=3;
-
-  })
-//expired food, filters through food items
-  const expiredItems = food.filter((item) => {
-    //if the number of days left is expired then the food item is considered to be expired.
-    return calculateDaysLeft(item.expirationDate) == "Expired" ;
-
-  })
-  //newly added food, takes the last 3 food items that were just added to the pantry and shows them in most recent order. 
-  const newItems = [...food].slice(-3).reverse();
+  } finally {
+    setLoading(false); // STOP loading (always runs)
+  }
+}; 
     
-  
-  
-  //displays what is shown on the home page, summary of total items,
-  //expiring soon, expired, just added items and the button to add food to pantry with the add food form. 
+  //returns what will show on the Home page
   return (
     <main className="home-page">
       <h1>Home</h1>
@@ -242,9 +181,9 @@ export default function Home() {
               onChange={(e) => setExpirationDate(e.target.value)}
               />
 
-          <button type = "submit" className = "saveFood-btn">
-              Save food item
-          </button>
+          <button type="submit" className="saveFood-btn" disabled={loading}>
+            {loading ? "Saving..." : "Save food item"}
+         </button>
           <button type = "button" className = "cancel-btn" onClick={removeFields}>
               Cancel 
 

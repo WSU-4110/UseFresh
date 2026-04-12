@@ -52,6 +52,9 @@ export default function ViewItemsPage() {
  
 //gets all of the food items from the backend with get request, if successful the food items are then in a food state var
   useEffect(() => {
+
+    document.title = "View Items - UseFresh";
+
     axios
       .get("http://localhost:3001/api/foods/all", {
           params: {

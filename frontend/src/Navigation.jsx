@@ -9,6 +9,7 @@ import "./Navigation.css";
 export default function Navigation() {
   //keeps track if the menu is open or closed
   const [open, setOpen] = useState(false);
+  const [showLogoutMsg, setShowLogoutMsg] = useState(false);
 
   const nav = useNavigate();
 
@@ -21,7 +22,6 @@ export default function Navigation() {
     //check is we clicked outside of menu
     function handleClickOutside(e) {
 
-      
 
       //if the menu exists and the click was outside, close the menu
       if (menuRef.current && !menuRef.current.contains(e.target)) {
@@ -37,11 +37,24 @@ export default function Navigation() {
   const handleLogout = () => {
   localStorage.removeItem("userId");
   setOpen(false);
-  nav("/", { replace: true }); 
-  };
+
+  setShowLogoutMsg(true);
+
+  setTimeout(() => {
+    setShowLogoutMsg(false);
+    nav("/", { replace: true });
+  }, 2000);
+};
 
 
   return (
+  <>
+    {showLogoutMsg && (
+  <div className="logout-popup">
+    Thank you for using UseFresh. See you Soon!👋
+  </div>
+  )}
+
     <header className="topbar">
       <div className="dropdown" ref={menuRef}>
         <button
@@ -74,5 +87,6 @@ export default function Navigation() {
         )}
       </div>
     </header>
+  </>
   );
 }
