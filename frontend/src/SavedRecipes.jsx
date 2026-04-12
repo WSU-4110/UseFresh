@@ -28,6 +28,9 @@ export default function SavedRecipes() {
 
   useEffect(() => {
     fetchSaved();
+
+    document.title = "Saved Recipes - UseFresh";
+
   }, []);
 
   const handleDelete = async (id) => {

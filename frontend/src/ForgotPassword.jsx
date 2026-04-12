@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Authentication.css";
 import axios from "axios"
@@ -21,6 +21,11 @@ function RequiredLabel({children, required}) {
 
 function ForgotPassword() {
 //email state variable is created and holds the emails that the user enters, and updates it when the user types in the field. 
+
+useEffect(() => {
+  document.title = "Forgot Password - UseFresh";
+  }, []);
+
 const[email, setEmail] = useState("");
 const handleSubmit = async (e) => {
     e.preventDefault();

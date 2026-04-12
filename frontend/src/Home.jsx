@@ -24,6 +24,7 @@ export default function Home() {
   const[quantity, setQuantity] = useState("");
   const [loading, setLoading] = useState(false);
   //const nav = useNavigate();
+
 //if the form is canceled or submitted, the form fields are cleared/removed
   const removeFields = () => {
     setFoodItem("");
@@ -31,6 +32,30 @@ export default function Home() {
   setQuantity("");
   setFoodForm(false);
   }
+  
+  const [food, setFood] = useState([]);
+  const [expiringSoon, setExpiringSoon] = useState([]);
+  const [expiredItems, setExpiredItems] = useState([]);
+  const [newItems, setNewItems] = useState([]);
+/*
+
+ useEffect(() => {
+  const fetchFood = async () => {
+    try {
+      const res = await axios.get("http://localhost:3001/api/foods");
+      setFood(res.data);
+
+      // expiringSoon, expiredItems, newItems
+    } catch (err) {
+      console.log(err);
+    }
+  };
+/////
+
+
+  fetchFood();
+}, []);*/
+
 
   const handleSubmit = async (e) => {
   e.preventDefault();

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "./Authentication.css";
 import axios from "axios";
@@ -15,7 +15,9 @@ function RequiredLabel({children}) {
   );
 }
 
+
 function ResetPassword() {
+
 
   //holds new password and confirm password that the user enters.
   const [password, setPassword] = useState("");
@@ -54,7 +56,7 @@ function ResetPassword() {
 
     try {
       const result = await axios.post(
-        `http://localhost:3001/api/user/reset-password/${token}`,
+        `http://localhost:3001/api/user/reset-password/${token}`, /////
         { password }
       );
 
