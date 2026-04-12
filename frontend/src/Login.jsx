@@ -1,5 +1,5 @@
 import { Link} from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Authentication.css";
@@ -7,11 +7,17 @@ import logo from "./Logo/Logo.png";
 
 function Login() {
 
+  useEffect(() => {
+  document.title = "Login - UseFresh";
+  }, []);
+
   //state variables are created to store for instance the password and is able to update the password
   const [usernameOrEmail, setusernameOrEmail] = useState("");
   const [password, setPassword] = useState("");
   //used to navigate to other pages
   const nav = useNavigate();
+
+
 //used to create functions which run when a form is entered.
   const handleLogin = async (e) => { 
     //prevents browser refresh (reacts is the one that deals will it)

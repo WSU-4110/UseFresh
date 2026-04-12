@@ -62,6 +62,8 @@ export default function ViewItemsPage() {
 
   useEffect(() => {
 
+    document.title = "View Items - UseFresh";
+
     axios
 
       .get("http://localhost:3001/api/foods/all", {

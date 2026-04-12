@@ -15,12 +15,15 @@ export default function Home() {
     if (!localStorage.getItem("userId")) {
       nav("/", { replace: true });
     }
+    
+    document.title = "Home - UseFresh";
   }, []);
 
   const [foodForm, setFoodForm] = useState(false);
   const[expirationDate, setExpirationDate] = useState("") ;
   const[foodItem, setFoodItem] = useState("");
-  const[quantity, setQuantity] = useState("")
+  const[quantity, setQuantity] = useState("");
+  const [loading, setLoading] = useState(false);
   //const nav = useNavigate();
 //if the form is canceled or submitted, the form fields are cleared/removed
   const removeFields = () => {
@@ -29,25 +32,38 @@ export default function Home() {
   setQuantity("");
   setFoodForm(false);
   }
-  const handleSubmit = (e) => { 
-    e.preventDefault();
-    //checks to see if any fields are missing if, the are error message is displayed
-    if(!expirationDate || !foodItem || !quantity) {
-      alert("Please fill in the required fields!");
-      
-    }
 
-    //sends food item and the expiration date to the backend
-    axios.post("http://localhost:3001/api/foods/add", 
-      { foodItem: foodItem, quantity: quantity, expirationDate: expirationDate, user: localStorage.getItem("userId")})
-    .then (() => { alert("Food item sccessfully added!")
-    removeFields();})
-    .catch(() => { alert ("Unable to add food item. Try again later!")});
-  };  
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
+  // validation FIRST 
+  if (!expirationDate || !foodItem || !quantity) {
+    alert("Please fill in the required fields!");
+    return;
+  }
+
+  setLoading(true); // START loading
+
+  try {
+    await axios.post("http://localhost:3001/api/foods/add", {
+      foodItem: foodItem,
+      quantity: quantity,
+      expirationDate: expirationDate,
+      user: localStorage.getItem("userId"),
+    });
+
+    alert("Food item successfully added!");
+    removeFields();
+
+  } catch (err) {
+    console.log(err);
+    alert("Unable to add food item. Try again later!");
+
+  } finally {
+    setLoading(false); // STOP loading (always runs)
+  }
+}; 
     
-  
-  
   //returns what will show on the Home page
   return (
     <main className="home-page">
@@ -90,9 +106,9 @@ export default function Home() {
               onChange={(e) => setExpirationDate(e.target.value)}
               />
 
-          <button type = "submit" className = "saveFood-btn">
-              Save food item
-          </button>
+          <button type="submit" className="saveFood-btn" disabled={loading}>
+            {loading ? "Saving..." : "Save food item"}
+         </button>
           <button type = "button" className = "cancel-btn" onClick={removeFields}>
               Cancel 
 
