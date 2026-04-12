@@ -28,6 +28,7 @@ export default function ViewItemsPage() {
   const [foodItem, setFoodItem] = useState("");
   const [food, setFood] = useState([]);
   const [quantity, setQuantity] = useState("");
+  const [search, setSearch] = useState("");
 
   const [today, setToday] = useState(new Date());
 
@@ -125,6 +126,11 @@ export default function ViewItemsPage() {
 
     if (!expirationVal || !foodItem) {
       alert("Please fill in the required fields!");
+      return;
+    }
+
+    if (quantity <= 0) {
+      alert("Quantity must be at least 1.");
       return;
     }
 
@@ -229,9 +235,7 @@ export default function ViewItemsPage() {
     axios
       .delete(`http://localhost:3001/api/foods/${id}`)
       .then(() => {
-        setFood((currentFood) =>
-          currentFood.filter((item) => item._id !== id)
-        );
+        setFood((currentFood) => currentFood.filter((item) => item._id !== id));
       })
       .catch(() => {
         alert("Failed to delete item");
@@ -359,7 +363,9 @@ export default function ViewItemsPage() {
             setProductName(data.product_name || "");
             setEditableProductName(data.product_name || "");
             setStatus(
-              `Got product: ${data.product_name || "Unknown"}. Now show the expiration label.`
+              `Got product: ${
+                data.product_name || "Unknown"
+              }. Now show the expiration label.`
             );
             setScanStep("expiration");
           } else {
@@ -406,6 +412,7 @@ export default function ViewItemsPage() {
         foodItem: editableProductName,
         quantity: Number(editableQuantity) || 1,
         expirationDate: editableExpirationDate,
+        user: localStorage.getItem("userId"),
       };
 
       const response = await axios.post(
@@ -443,6 +450,10 @@ export default function ViewItemsPage() {
   const sortedFood = [...food].sort((a, b) => {
     return new Date(a.expirationDate) - new Date(b.expirationDate);
   });
+
+  const foodSearched = sortedFood.filter((item) =>
+    item.foodItem.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <div className="view-items-page">
@@ -619,6 +630,7 @@ export default function ViewItemsPage() {
               <label>Quantity</label>
               <input
                 type="number"
+                min="1"
                 placeholder="Enter food quantity"
                 value={quantity}
                 onChange={(e) => setQuantity(e.target.value)}
@@ -690,6 +702,7 @@ export default function ViewItemsPage() {
               <label>Quantity</label>
               <input
                 type="number"
+                min="1"
                 placeholder="Enter new quantity"
                 value={quantity}
                 onChange={(e) => setQuantity(e.target.value)}
@@ -717,6 +730,21 @@ export default function ViewItemsPage() {
         </div>
       )}
 
+      <div style={{ display: "flex", justifyContent: "center", margin: "20px 0" }}>
+        <input
+          type="text"
+          placeholder="Search Food Item"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          style={{
+            padding: "8px",
+            width: "250px",
+            borderRadius: "6px",
+            border: "1px solid #ccc",
+          }}
+        />
+      </div>
+
       <div className="food-table">
         <div className="food-header">
           <span>Food Item</span>
@@ -726,7 +754,7 @@ export default function ViewItemsPage() {
           <span>Delete</span>
         </div>
 
-        {food.length === 0 && (
+        {foodSearched.length === 0 && (
           <div className="food-row">
             <span>-</span>
             <span>-</span>
@@ -736,7 +764,7 @@ export default function ViewItemsPage() {
           </div>
         )}
 
-        {sortedFood.map((item, indx) => (
+        {foodSearched.map((item, indx) => (
           <div
             className={`food-row ${getRowColorClass(item.expirationDate)}`}
             key={indx}

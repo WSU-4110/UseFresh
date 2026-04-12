@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Authentication.css";
 import axios from "axios"
@@ -16,6 +16,11 @@ function RequiredLabel({children, required}) {
 }
 
 function Signup() {
+
+  useEffect(() => {
+    document.title = "Signup - UseFresh";
+  }, []);
+
 //state variables are created to store the password/username/email and is able to update them when user input is entered
   const [username, setUsername] = useState("");
   const [email,setEmail] = useState("");
@@ -43,6 +48,12 @@ function Signup() {
       return;
 
     }
+    if (!email.includes(".")) {
+
+      alert("This email does not exist. Please enter a valid email.");
+      return;
+
+    }
 
 
         //sends post request to backend (register), sends either username and email and password that the user inputted to server
@@ -56,7 +67,7 @@ function Signup() {
         })
             //catches any error and sends message to backend
         .catch((err) => {
-            alert("err.response.data.error");
+            alert(err.response.data.error);
             
         });
 
@@ -69,10 +80,10 @@ function Signup() {
 return (
     
        <div className = "authentication-page">
-        <div className = "d-flex justify-content-center gap-3">
+      <div className="text-center">
         <img src = {logo}
-        style = {{height: "170px", width : "170px", objectFit: "contain"}} />
-      <h1 className = "m-3">Create Account</h1>
+        style = {{height: "220px", width : "220px", objectFit: "contain", display: "block", margin: "0 auto 12px"}} />
+        <h1>Create Account</h1>
       </div>
       <p className="subtitle">Welcome to UseFresh!</p>
 

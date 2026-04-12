@@ -7,6 +7,7 @@ const foodRoutes = require("./routes/foodRoutes");
 require("dotenv").config();
 
 const userRoutes = require("./routes/userRoutes");
+const recipeRoutes = require("./routes/recipeRoutes");
 
 const app = express();
 app.use(express.json());
@@ -21,6 +22,7 @@ const PORT = process.env.PORT || 3001;
 // use auth routes
 app.use("/api/user", userRoutes);
 app.use("/api/foods", foodRoutes);
+app.use("/api/recipes", recipeRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

@@ -1,71 +1,81 @@
 import { Link} from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Authentication.css";
 import logo from "./Logo/Logo.png";
 
+
+function RequiredLabel({children, required}) {
+  return (
+  <label>  
+  {children}
+  {<span style = {{color : 'red', fontWeight : "bold" }}> * </span>}
+
+  </label>
+  );
+}
+
 function Login() {
+
+  useEffect(() => {
+  document.title = "Login - UseFresh";
+  }, []);
 
   //state variables are created to store for instance the password and is able to update the password
   const [usernameOrEmail, setusernameOrEmail] = useState("");
   const [password, setPassword] = useState("");
   //used to navigate to other pages
   const nav = useNavigate();
+
+
 //used to create functions which run when a form is entered.
   const handleLogin = async (e) => { 
     //prevents browser refresh (reacts is the one that deals will it)
     e.preventDefault();
+
+    //if user inputs additional spaces before/after their credentials it will be removed. 
+    const trimmedUsernameOrEmail = usernameOrEmail.trim();
+    
     //checks if user entered both fields if not alter then with message
-    if (!password || !usernameOrEmail ) {
+    if (!password || !trimmedUsernameOrEmail ) {
 
       alert("Please enter email/username and password");
       return;
 
     }
 
-        //sends post request to backend (login), sends either username or email and password that the user inputted
-        axios.post("http://localhost:3001/api/user/login", {username: usernameOrEmail, email: usernameOrEmail, password: password, })
-        //if the backend has recieved the request sucessfully
-        .then((result) => {
-            if(result.data.message === "Success" ) {
+    try {
+      //sends post request to backend (login), sends either username or email and password that the user inputted
+      const result = await axios.post("http://localhost:3001/api/user/login", {
+        username: trimmedUsernameOrEmail, 
+        email: trimmedUsernameOrEmail, 
+        password: password
+      });
 
-                localStorage.setItem("userId", result.data.user._id);
+   
 
-                // then navigate
-                nav("/home");
-            }
-            else {
-                alert(result.data.message);
-            }
-        })
-
-
-          /* OLD CODE - might need
-        .then((result) => {
-            //if the backend confirms that the login works
-            if(result.data.message === "Success" ) {
-            //will go to the home page
-            nav("/home")
-            }
-            else {
-                //if there is an error it shows it on backend
-                alert(result.data.message)
-            }
-        }) */
-            //if there is error shows message 
-        .catch((err) => { alert("Login Failed") });
-    
-    
+      //if the backend has received the request successfully
+      if(result.data.message === "Success" && result.data.user?._id) {
+        //stores the userID so that the user can stay logged in and essentially allows system to know who the user is. 
+        localStorage.setItem("userId", result.data.user._id) ;
+        // then navigate
+        nav("/home");
+      } else {
+        alert(result.data.message || "Login failed");
+      }
+    } catch (err) {
+      alert(err?.response?.data?.error || "Login failed. Please try again.");
+    }
   };
 
 return (
     //connects with authentication.css file and create background for the page
       <div className= "authentication-page">
-     <div className = "d-flex justify-content-center gap-3">
+      <div className="text-center">
         <img src = {logo}
-        style = {{height: "170px", width : "170px", objectFit: "contain"}} />
-      <h1 className = "m-3">Login</h1>
+        style = {{height: "220px", width : "220px", objectFit: "contain", display: "block", margin: "0 auto 12px"}} />
+        <h1>Login</h1>
       </div>
       <p className="subtitle">Welcome to UseFresh!</p>
       <div className="authentication-card">
@@ -73,7 +83,7 @@ return (
       <form onSubmit={handleLogin}>
         <div className = " mb-3">
       
-        <label className="form-label"> Enter Email or Username</label>
+        <RequiredLabel required={true}> Enter Email or Username</RequiredLabel>
         <input
           type="text"
           placeholder="Email or Username"
@@ -87,9 +97,7 @@ return (
         </div>
        
       <div className = "mb-3">
-        <label className="form-label"> Enter Password</label>
-      
-      
+        <RequiredLabel required={true}> Enter Password</RequiredLabel>
         <input
 
           type="password"
@@ -100,7 +108,10 @@ return (
           required
         />
       </div>
-
+       <div className="mb-3 text-end">
+      
+      <Link to="/forgot_password">Forgot Password?</Link>
+      </div>
         <button type="submit" className = "btn btn-success w-100">
           Login</button>
       </form>
@@ -109,10 +120,6 @@ return (
       <Link to="/register">Create an Account</Link>
       </div>
       </div>
-  
-
-    
-  
 
 </div>
   )
