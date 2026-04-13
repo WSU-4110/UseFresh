@@ -18,6 +18,10 @@ function RequiredLabel({children}) {
 
 function ResetPassword() {
 
+  useEffect(() => {
+    
+     document.title = "Reset Password - UseFresh";
+  }, []);
 
   //holds new password and confirm password that the user enters.
   const [password, setPassword] = useState("");
