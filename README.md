@@ -71,32 +71,34 @@ The purpose of UseFresh is to help users:
 ## UI Overview
 
 ### Login Page
-![Login Page](assets/screenshots/login.png)
+![Login Page](assets/login.png)
 *Figure 1: User authentication screen with login form*
 
 ### Home Dashboard
-![Home Dashboard](assets/screenshots/home.png)
+![Home Dashboard](assets/home.png)
 *Figure 2: Main dashboard showing food inventory and quick actions*
 
+### View Items 
+![View Items](assets/view.png)
+*Figure 7: Main area showing color coded food inventory table and editing actions*
+
 ### Add Food Item
-![Add Food Item](assets/screenshots/add-food.png)
+![Add Food Item](assets/add-food.png)
 *Figure 3: Form for manually adding food items with expiration dates*
 
 ### Camera Scanner
-![Camera Scanner](assets/screenshots/scanner.png)
+![Camera Scanner](assets/scanner.png)
 *Figure 4: Camera interface for scanning food product labels*
 
 ### Recipe Suggestions
-![Recipe Suggestions](assets/screenshots/recipes.png)
+![Recipe Suggestions](assets/recipes.png)
 *Figure 5: AI-generated recipe suggestions based on expiring ingredients*
 
 ### Saved Recipes
-![Saved Recipes](assets/screenshots/saved-recipes.png)
+![Saved Recipes](assets/saved-recipes.png)
 *Figure 6: Collection of user-saved favorite recipes*
 
-### Mobile View
-![Mobile View](assets/screenshots/mobile-view.png)
-*Figure 7: Responsive design optimized for mobile devices*
+
 
 ## Project Status
 
@@ -176,7 +178,6 @@ HF_TOKEN=your_hugging_face_api_token
 2. **Start the AI Component** (in a separate terminal)
    ```bash
    cd AI_component
-   npm install
    node Scanserver.js
    ```
    The AI service will run on `http://localhost:5000`
@@ -184,7 +185,6 @@ HF_TOKEN=your_hugging_face_api_token
 3. **Start the Backend** (in a separate terminal)
    ```bash
    cd backend
-   npm install
    npm start
    ```
    The backend API will run on `http://localhost:3001`
@@ -192,7 +192,6 @@ HF_TOKEN=your_hugging_face_api_token
 4. **Start the Frontend** (in a separate terminal)
    ```bash
    cd frontend
-   npm install
    npm run dev
    ```
    The frontend will run on `http://localhost:5173` (or similar Vite default port)
