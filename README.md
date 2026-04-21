@@ -80,23 +80,23 @@ The purpose of UseFresh is to help users:
 
 ### View Items 
 ![View Items](assets/view.png)
-*Figure 7: Main area showing color coded food inventory table and editing actions*
+*Figure 3: Main area showing color coded food inventory table and editing actions*
 
 ### Add Food Item
 ![Add Food Item](assets/add-food.png)
-*Figure 3: Form for manually adding food items with expiration dates*
+*Figure 4: Form for manually adding food items with expiration dates*
 
 ### Camera Scanner
 ![Camera Scanner](assets/scanner.png)
-*Figure 4: Camera interface for scanning food product labels*
+*Figure 5: Camera interface for scanning food product labels*
 
 ### Recipe Suggestions
 ![Recipe Suggestions](assets/recipes.png)
-*Figure 5: AI-generated recipe suggestions based on expiring ingredients*
+*Figure 6: AI-generated recipe suggestions based on expiring ingredients*
 
 ### Saved Recipes
 ![Saved Recipes](assets/saved-recipes.png)
-*Figure 6: Collection of user-saved favorite recipes*
+*Figure 7: Collection of user-saved favorite recipes*
 
 
 
