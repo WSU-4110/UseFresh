@@ -1,0 +1,126 @@
+.recipes-page {
+  width: 100%;
+  max-width: none;
+  min-height: calc(100vh - 110px);
+  margin: 0;
+  padding: 24px 24px 40px;
+  border: none;
+  border-radius: 0;
+  background:
+    radial-gradient(circle at 12% 10%, #f4e9b8 0%, transparent 30%),
+    radial-gradient(circle at 88% 8%, #dbe6d9 0%, transparent 28%),
+    linear-gradient(180deg, #efe8da 0%, #e7ddcc 100%);
+  color: #3d3224;
+  text-align: center;
+  position: relative;
+}
+
+.recipes-logo {
+  position: absolute;
+  top: 18px;
+  left: 16px;
+  width: 220px;
+  height: 220px;
+  object-fit: contain;
+}
+
+.recipes-page h1 {
+  margin: 0;
+  font-family: "Times New Roman", Times, serif;
+  font-style: italic;
+  font-size: clamp(4.8rem, 8vw, 6.4rem);
+  color: #2f5139;
+  letter-spacing: 0.04em;
+}
+
+.recipes-page p {
+  margin-top: 0;
+  font-size: 1.35rem;
+  line-height: 1.65;
+  color: #594838;
+  max-width: 65ch;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+.recipe-container {
+  margin-top: 30px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;   /* centers the container */
+  text-align: left;    
+}
+
+.recipe-section {
+  margin-top: 20px;
+}
+
+.ingredients-list,
+.steps-list {
+  padding-left: 25px;   /* keeps bullets close to text */
+  margin: 10px 0;
+}
+
+.ingredients-list li,
+.steps-list li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.generate-recipe-btn,
+.save-recipe-btn {
+  margin-top: 14px;
+  min-width: 260px;
+  padding: 14px 22px;
+  border: 1px solid #d9c7ab;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #3b6f56 0%, #2f5a45 100%);
+  color: #f2e9db;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.generate-recipe-btn:hover {
+  filter: brightness(1.05);
+}
+
+/* Center the three recipe buttons */
+.recipe-btn-group {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 16px 0;
+}
+
+
+@media (max-width: 640px) {
+  .recipe-btn-group {
+    flex-direction: column;
+    align-items: center;
+  }
+  .generate-recipe-btn {
+    min-width: 200px;
+    width: 80%;
+  }
+}
+
+@media (max-width: 640px) {
+  .recipes-page {
+    min-height: calc(100vh - 96px);
+    padding: 22px 18px;
+  }
+
+  .recipes-logo {
+    width: 110px;
+    height: 110px;
+    top: 12px;
+    left: 8px;
+  }
+
+  .recipes-page p {
+    font-size: 1.2rem;
+  }
+}
